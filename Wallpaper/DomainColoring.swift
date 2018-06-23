@@ -137,7 +137,9 @@ func p1(_ xi: Double, _ eta: Double) -> ([Coef]) -> Recipe {
 }
 
 func p2(_ xi: Double, _ eta: Double) -> ([Coef]) -> Recipe {
-    return {(c) in makeRecipe(recipeFunc: (genericLattice(xi, eta)), coeffs: nub(c + c.map{$0.negateBoth()}))}
+    return {(c) in
+        let c1 = c.map{$0.negateBoth()}
+        return makeRecipe(recipeFunc: (genericLattice(xi, eta)), coeffs: nub(c + c1))}
 }
 // Rhombic Lattice. --------------------------------------------------------------------------------
 
@@ -151,7 +153,9 @@ func rhombicLattice(_ b: Double) -> (Int, Int) -> Recipe {
 }
 
 func cm(_ b: Double) -> ([Coef]) -> Recipe {
-    return {(c) in makeRecipe(recipeFunc: (rhombicLattice(b)), coeffs: nub(c + c.map{$0.reverse()}))}
+    return {(c) in
+        let c1 = c.map{$0.reverse()}
+        return makeRecipe(recipeFunc: (rhombicLattice(b)), coeffs: nub(c + c1))}
 }
 
 func cmm(_ b: Double) -> ([Coef]) -> Recipe {
@@ -213,15 +217,15 @@ func squareLattice(_ n: Int, _ m: Int) -> Recipe {
 }
 
 func p4(_ c: [Coef]) -> Recipe {
-    return makeRecipe(recipeFunc: squareLattice(_:_:), coeffs: c)
+    return makeRecipe(recipeFunc: squareLattice, coeffs: c)
 }
 
 func p4m(_ c: [Coef]) -> Recipe {
-    return makeRecipe(recipeFunc: squareLattice(_:_:), coeffs: nub(c + c.map{$0.reverse()}))
+    return makeRecipe(recipeFunc: squareLattice, coeffs: nub(c + c.map{$0.reverse()}))
 }
 
 func p4g(_ c: [Coef]) -> Recipe {
-    return makeRecipe(recipeFunc: squareLattice(_:_:), coeffs: nub(c + c.map{$0.alternate{(n, m)
+    return makeRecipe(recipeFunc: squareLattice, coeffs: nub(c + c.map{$0.alternate{(n, m)
         in alt(n + m)}.reverse()}))
 }
 

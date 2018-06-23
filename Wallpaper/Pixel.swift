@@ -19,7 +19,6 @@ struct Pixel {
 let blackPixel = Pixel(red: 0, green: 0, blue: 0, alpha: 255)
 let whitePixel = Pixel(red: 255, green: 255, blue: 255, alpha: 255)
 
-
 typealias RGBA = [UInt8]
 
 struct Image {
