@@ -102,6 +102,32 @@ func domainColoring(_ options: Options, _ recipe: @escaping Recipe, _ wheel: Ima
     return generateImage(options.width, options.height, pixelFn: clr)
 }
 
+func blend(_ options: Options, _ recipe1: @escaping Recipe, _ recipe2: @escaping Recipe,_ wheel: Image) -> Image {
+    func rcp(_ z: Complex) -> Complex {
+        let m = max(1, Double(options.width) / Double(options.height))
+        let a = (z.re + m) / (2 * m)
+        return recipe2(z).scale(a) + recipe1(z).scale(1 - a)
+    }
+    return domainColoring(options, rcp, wheel)
+}
+
+func morph(_ options: Options, _ recipe: @escaping Recipe, _ cut: Double, _ wheel: Image) -> Image {
+    func phi(_ c: Double, _ u: Double) -> Double {
+        if u < cut {
+            return 1
+        } else if u > 1 - cut {
+            return -1
+        } else {
+            return (2 / (2 * cut - 1)) * (u - 0.5)
+        }
+    }
+    func rcp(_ z: Complex) -> Complex {
+        let t = Double(options.width / options.repLength)
+        return Complex(0,1).scale(exp(Double.pi * phi(cut, ((z.re + t / 2) / t)))) * recipe(z)
+    }
+    return domainColoring(options, recipe, wheel)
+}
+
 func wallpaper(options: Options, recipeFn: (([Coef]) -> Recipe), coefs: [Coef], preProcess: (Image) -> Image, nsImage: NSImage) -> NSImage {
     let image = imageToBitmap(nsImage)
     let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
