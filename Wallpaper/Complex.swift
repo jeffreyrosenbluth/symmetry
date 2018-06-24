@@ -17,8 +17,22 @@ struct Complex: Hashable {
         im = b
     }
     
+    init(r: Double, theta: Double) {
+        re = r * cos(theta)
+        im = r * sin(theta)
+    }
+    
+    init(r: Double, degrees: Double) {
+        re = r * cos(Double.pi * degrees / 180)
+        im = r * sin(Double.pi * degrees / 180)
+    }
+    
     func scale(_ k: Double) -> Complex {
         return Complex(k * re, k * im)
+    }
+    
+    func rotate(_ theta: Double) -> Complex {
+        return self * Complex(r: 1, theta: theta)
     }
 }
 

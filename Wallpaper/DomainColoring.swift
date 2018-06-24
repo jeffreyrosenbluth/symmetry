@@ -44,6 +44,7 @@ struct Options {
     let height: Int
     let repLength: Int
     let scale: Double
+    let rotation: Double
 }
 
 func enm(n: Int, m: Int, x: Double, y: Double) -> Complex {
@@ -80,7 +81,10 @@ func focus(w: Int, h: Int, l: Int, recipe: @escaping Recipe) -> Recipe {
 func color(options: Options, recipe: @escaping Recipe, image: Image, i: Int, j: Int) -> Pixel {
     let w1 = image.width
     let h1 = image.height
-    let z = focus(w: options.width, h: options.height, l: options.repLength, recipe: recipe)(Complex(Double(i), Double(j))).scale(0.5 * 0.5 * Double(min(w1, h1)))
+    let f = focus(w: options.width, h: options.height, l: options.repLength, recipe: recipe)
+    let z = f(Complex(Double(i), Double(j)))
+           .scale(0.5 * options.scale * Double(min(w1, h1)))
+           .rotate(options.rotation)
     func clamp(_ m: Int, _ n: Int) -> Pixel {
         if (m < 0) || (n < 0) || m >= w1 || n >= h1 {
             return blackPixel
