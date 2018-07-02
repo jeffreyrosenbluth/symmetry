@@ -13,16 +13,6 @@
 		CE81755A20B8467200525391 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE81755820B8467200525391 /* Main.storyboard */; };
 		CE81756620B8467200525391 /* WallpaperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81756520B8467200525391 /* WallpaperTests.swift */; };
 		CE81757120B8467200525391 /* WallpaperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81757020B8467200525391 /* WallpaperUITests.swift */; };
-		CE81758920B84FEE00525391 /* nssl0049.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81757F20B84FEE00525391 /* nssl0049.jpg */; };
-		CE81758A20B84FEE00525391 /* nssl0046.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81758020B84FEE00525391 /* nssl0046.jpg */; };
-		CE81758B20B84FEE00525391 /* nssl0091.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81758120B84FEE00525391 /* nssl0091.jpg */; };
-		CE81758C20B84FEE00525391 /* nssl0045.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81758220B84FEE00525391 /* nssl0045.jpg */; };
-		CE81758D20B84FEE00525391 /* nssl0051.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81758320B84FEE00525391 /* nssl0051.jpg */; };
-		CE81758E20B84FEE00525391 /* nssl0041.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81758420B84FEE00525391 /* nssl0041.jpg */; };
-		CE81758F20B84FEE00525391 /* nssl0042.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81758520B84FEE00525391 /* nssl0042.jpg */; };
-		CE81759020B84FEE00525391 /* nssl0043.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81758620B84FEE00525391 /* nssl0043.jpg */; };
-		CE81759120B84FEE00525391 /* nssl0033.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81758720B84FEE00525391 /* nssl0033.jpg */; };
-		CE81759220B84FEE00525391 /* nssl0034.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE81758820B84FEE00525391 /* nssl0034.jpg */; };
 		CE81759420B852B000525391 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81759320B852B000525391 /* SourceViewController.swift */; };
 		CE81759620B8530E00525391 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81759520B8530E00525391 /* DetailViewController.swift */; };
 		CECBCAD720C815CD005902E6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECBCAD620C815CD005902E6 /* Utilities.swift */; };
@@ -62,16 +52,6 @@
 		CE81756C20B8467200525391 /* WallpaperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WallpaperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE81757020B8467200525391 /* WallpaperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperUITests.swift; sourceTree = "<group>"; };
 		CE81757220B8467200525391 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE81757F20B84FEE00525391 /* nssl0049.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0049.jpg; sourceTree = "<group>"; };
-		CE81758020B84FEE00525391 /* nssl0046.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0046.jpg; sourceTree = "<group>"; };
-		CE81758120B84FEE00525391 /* nssl0091.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0091.jpg; sourceTree = "<group>"; };
-		CE81758220B84FEE00525391 /* nssl0045.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0045.jpg; sourceTree = "<group>"; };
-		CE81758320B84FEE00525391 /* nssl0051.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0051.jpg; sourceTree = "<group>"; };
-		CE81758420B84FEE00525391 /* nssl0041.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0041.jpg; sourceTree = "<group>"; };
-		CE81758520B84FEE00525391 /* nssl0042.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0042.jpg; sourceTree = "<group>"; };
-		CE81758620B84FEE00525391 /* nssl0043.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0043.jpg; sourceTree = "<group>"; };
-		CE81758720B84FEE00525391 /* nssl0033.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0033.jpg; sourceTree = "<group>"; };
-		CE81758820B84FEE00525391 /* nssl0034.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nssl0034.jpg; sourceTree = "<group>"; };
 		CE81759320B852B000525391 /* SourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		CE81759520B8530E00525391 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		CECBCAD620C815CD005902E6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -166,16 +146,6 @@
 		CE81757E20B84FEE00525391 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				CE81757F20B84FEE00525391 /* nssl0049.jpg */,
-				CE81758020B84FEE00525391 /* nssl0046.jpg */,
-				CE81758120B84FEE00525391 /* nssl0091.jpg */,
-				CE81758220B84FEE00525391 /* nssl0045.jpg */,
-				CE81758320B84FEE00525391 /* nssl0051.jpg */,
-				CE81758420B84FEE00525391 /* nssl0041.jpg */,
-				CE81758520B84FEE00525391 /* nssl0042.jpg */,
-				CE81758620B84FEE00525391 /* nssl0043.jpg */,
-				CE81758720B84FEE00525391 /* nssl0033.jpg */,
-				CE81758820B84FEE00525391 /* nssl0034.jpg */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -284,17 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE81759020B84FEE00525391 /* nssl0043.jpg in Resources */,
-				CE81759120B84FEE00525391 /* nssl0033.jpg in Resources */,
-				CE81758E20B84FEE00525391 /* nssl0041.jpg in Resources */,
-				CE81758B20B84FEE00525391 /* nssl0091.jpg in Resources */,
-				CE81758D20B84FEE00525391 /* nssl0051.jpg in Resources */,
 				CE81755720B8467200525391 /* Assets.xcassets in Resources */,
-				CE81758F20B84FEE00525391 /* nssl0042.jpg in Resources */,
-				CE81758A20B84FEE00525391 /* nssl0046.jpg in Resources */,
-				CE81758920B84FEE00525391 /* nssl0049.jpg in Resources */,
-				CE81758C20B84FEE00525391 /* nssl0045.jpg in Resources */,
-				CE81759220B84FEE00525391 /* nssl0034.jpg in Resources */,
 				CE81755A20B8467200525391 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
