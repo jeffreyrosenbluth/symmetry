@@ -297,4 +297,43 @@ func p6m(_ c: [Coef]) -> Recipe {
 
 // -------------------------------------------------------------------------------------------------
 
-
+func stringToRecipeFn(_ str: String) -> ([Coef]) -> Recipe {
+    switch str {
+    case "p1":
+        return p1(1,1)
+    case "p2":
+        return p2(1,1)
+    case "cm":
+        return cm(1)
+    case "cmm":
+        return cmm(1)
+    case "pm":
+        return pm(1)
+    case "pg":
+        return pg(1)
+    case "pmm":
+        return pmm(1)
+    case "pmg":
+        return pmg(1)
+    case "pgg":
+        return pgg(1)
+    case "p4":
+        return p4
+    case "p4m":
+        return p4m
+    case "p4g":
+        return p4g
+    case "p3":
+        return p3
+    case "p31m":
+        return p31m
+    case "p3m1":
+        return p3m1
+    case "p6":
+        return p6
+    case "p6m":
+        return p6m
+    default:
+        return p4
+    }
+}
