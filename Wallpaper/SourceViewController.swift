@@ -11,6 +11,7 @@ import Cocoa
 class SourceViewController: NSViewController {
     @IBOutlet weak var group: NSPopUpButton!
     @IBOutlet weak var wheel: NSImageView!
+    @IBOutlet weak var progress: NSProgressIndicator!
     
     @IBAction func press(_ sender: Any) {
         guard let url = NSOpenPanel().selectUrl else { return }
@@ -22,8 +23,13 @@ class SourceViewController: NSViewController {
         guard let splitView = parent as? NSSplitViewController else {return}
         guard let detail = splitView.childViewControllers[1] as? DetailViewController else { return }
         guard let grp = group.titleOfSelectedItem else {return}
-        if let img = wheel.image {
-            detail.makeWallpaper(img, stringToRecipeFn(grp))
+        guard let img = wheel.image else {return}
+        var result: NSImage = NSImage()
+        DispatchQueue.global(qos: .userInteractive).async {
+            result = detail.makeWallpaper(img, stringToRecipeFn(grp))
+            DispatchQueue.main.async {
+                detail.imageView.image = result
+            }
         }
     }
     

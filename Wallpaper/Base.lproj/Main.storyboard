@@ -789,6 +789,11 @@
                                     <action selector="press:" target="ajg-Yh-L8P" id="hWu-n2-ICr"/>
                                 </connections>
                             </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="msA-sR-pOX">
+                                <rect key="frame" x="5" y="8" width="240" height="240"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="5kh-5D-qlR"/>
+                            </imageView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Qo-mH-ozh">
                                 <rect key="frame" x="16" y="292" width="81" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -800,15 +805,15 @@
                                     </connections>
                                 </buttonCell>
                             </button>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="msA-sR-pOX">
-                                <rect key="frame" x="5" y="8" width="240" height="240"/>
+                            <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="lH0-Jq-SiB">
+                                <rect key="frame" x="99" y="299" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="5kh-5D-qlR"/>
-                            </imageView>
+                            </progressIndicator>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="group" destination="pNk-MH-OSD" id="RxX-eT-SWZ"/>
+                        <outlet property="progress" destination="lH0-Jq-SiB" id="naj-2i-V3B"/>
                         <outlet property="wheel" destination="msA-sR-pOX" id="cry-sT-eMy"/>
                     </connections>
                 </viewController>
