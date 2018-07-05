@@ -89,6 +89,10 @@ func half(_ image: Image) -> Image {
     }
 }
 
+func plain(_ image: Image) -> Image {
+    return image
+}
+
 func invertImage(_ image: Image) -> Image {
     return generateImage(image.width, image.height) {
         (x,y) in invertPixel(getPixel(image: image, x: x, y: y))
