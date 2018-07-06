@@ -11,6 +11,10 @@ import Cocoa
 class SourceViewController: NSViewController, NSTextFieldDelegate {
     
     var originalImage: Image = Image(pixels: [], width: 0, height: 0)
+    var formula: [Coef] = [Coef(nCoord: 1, mCoord: 0, anm: Complex(0.75, 0.25)),
+                           Coef(nCoord: -2, mCoord: 2, anm: Complex(0.2, -0.2)),
+                           Coef(nCoord: 1, mCoord: -1, anm: Complex(0.6, 0.1))
+                           ]
     
     @IBOutlet weak var group: NSPopUpButton!
     @IBOutlet weak var wheel: NSImageView!
@@ -101,7 +105,6 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
 }
 

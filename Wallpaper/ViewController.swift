@@ -14,5 +14,4 @@ class ViewController: NSSplitViewController {
         super.viewDidLoad()
         // Do view setup here.
     }
-    
 }

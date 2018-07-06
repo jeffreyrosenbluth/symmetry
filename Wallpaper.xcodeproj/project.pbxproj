@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE110A3D20EFFA9F00667385 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE110A3C20EFFA9F00667385 /* MainWindowController.swift */; };
 		CE81755320B8467100525391 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81755220B8467100525391 /* AppDelegate.swift */; };
 		CE81755720B8467200525391 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE81755620B8467200525391 /* Assets.xcassets */; };
 		CE81755A20B8467200525391 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE81755820B8467200525391 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE110A3C20EFFA9F00667385 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		CE81754F20B8467100525391 /* Wallpaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wallpaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE81755220B8467100525391 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE81755620B8467200525391 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				CE81755620B8467200525391 /* Assets.xcassets */,
 				CE81755820B8467200525391 /* Main.storyboard */,
 				CE81759320B852B000525391 /* SourceViewController.swift */,
+				CE110A3C20EFFA9F00667385 /* MainWindowController.swift */,
 				CECBCAD620C815CD005902E6 /* Utilities.swift */,
 				CE81759520B8530E00525391 /* DetailViewController.swift */,
 				CECBCADA20D6F58F005902E6 /* DomainColoring.swift */,
@@ -119,8 +122,8 @@
 				CECBCAD820D3EDD9005902E6 /* Pixel.swift */,
 				CEE0797120EBBE5B007AFA70 /* ViewController.swift */,
 				CE81755B20B8467200525391 /* Info.plist */,
-				CE81757E20B84FEE00525391 /* Content */,
 				CE81755C20B8467200525391 /* Wallpaper.entitlements */,
+				CE81757E20B84FEE00525391 /* Content */,
 			);
 			path = Wallpaper;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				CE81755320B8467100525391 /* AppDelegate.swift in Sources */,
 				CECBCADB20D6F58F005902E6 /* DomainColoring.swift in Sources */,
 				CE81759420B852B000525391 /* SourceViewController.swift in Sources */,
+				CE110A3D20EFFA9F00667385 /* MainWindowController.swift in Sources */,
 				CECBCAD720C815CD005902E6 /* Utilities.swift in Sources */,
 				CECBCAD920D3EDD9005902E6 /* Pixel.swift in Sources */,
 				CEE0797220EBBE5B007AFA70 /* ViewController.swift in Sources */,
