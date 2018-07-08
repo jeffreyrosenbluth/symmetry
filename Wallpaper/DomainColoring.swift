@@ -12,9 +12,20 @@ import Cocoa
 typealias  Recipe = (Complex) -> Complex
 
 struct Coef: Hashable {
-    let nCoord: Int
-    let mCoord: Int
-    let anm: Complex
+    var nCoord: Int
+    var mCoord: Int
+    var anm: Complex
+    
+    init(nCoord: Int, mCoord: Int, anm: Complex) {
+        self.nCoord = nCoord
+        self.mCoord = mCoord
+        self.anm = anm
+    }
+    init() {
+        nCoord = 0
+        mCoord = 0
+        anm = Complex(0, 0)
+    }
 }
 
 extension Coef {

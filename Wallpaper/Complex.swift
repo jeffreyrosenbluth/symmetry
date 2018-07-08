@@ -34,6 +34,14 @@ struct Complex: Hashable {
     func rotate(_ theta: Double) -> Complex {
         return self * Complex(r: 1, theta: theta)
     }
+    
+    var magnitude: Double {
+        return sqrt(re * re + im * im)
+    }
+    
+    var direction: Double {
+        return 180 * atan2(im, re) / Double.pi
+    }
 }
 
 func +(_ a: Complex, _ b: Complex) -> Complex {

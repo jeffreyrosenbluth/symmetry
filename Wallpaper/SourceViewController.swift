@@ -13,12 +13,14 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
     var originalImage: Image = Image(pixels: [], width: 0, height: 0)
     var formula: [Coef] = [Coef(nCoord: 1, mCoord: 0, anm: Complex(0.75, 0.25)),
                            Coef(nCoord: -2, mCoord: 2, anm: Complex(0.2, -0.2)),
-                           Coef(nCoord: 1, mCoord: -1, anm: Complex(0.6, 0.1))
+                           Coef(nCoord: 1, mCoord: -1, anm: Complex(0.6, 0.1)),
+                           Coef(), Coef(),
+                           Coef(), Coef(), Coef(), Coef(), Coef()
                            ]
+    var terms: Int = 3
     
     @IBOutlet weak var group: NSPopUpButton!
     @IBOutlet weak var wheel: NSImageView!
-    @IBOutlet weak var progress: NSProgressIndicator!
     @IBOutlet weak var param1: NSTextField!
     @IBOutlet weak var param2: NSTextField!
     @IBOutlet weak var param1Label: NSTextField!
@@ -27,6 +29,30 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var scale: NSTextField!
     @IBOutlet weak var rotation: NSTextField!
     @IBOutlet weak var preprocessMenu: NSPopUpButton!
+    @IBOutlet weak var term: NSTextField!
+    @IBOutlet weak var n: NSTextField!
+    @IBOutlet weak var m: NSTextField!
+    @IBOutlet weak var magnitude: NSTextField!
+    @IBOutlet weak var direction: NSTextField!
+    @IBOutlet weak var termStepper: NSStepper!
+    @IBOutlet weak var numberOfTerms: NSPopUpButton!
+    
+    @IBAction func nChanged(_ sender: NSTextField) {
+        let v = Int(sender.intValue)
+        let i = Int(term.intValue - 1)
+        formula[i].nCoord = v
+    }
+    
+    @IBAction func incrementTerm(_ sender: NSStepper) {
+        term.intValue = sender.intValue
+        showCoef(Int(sender.intValue))
+    }
+    
+    @IBAction func termsChanged(_ sender: NSPopUpButton) {
+        let n = numberOfTerms.titleOfSelectedItem!
+        terms = Int(n)!
+        termStepper.maxValue = Double(n)!
+    }
     
     @IBAction func preprocessChanged(_ sender: Any) {
         preProcessImage()
@@ -67,7 +93,7 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    @IBAction func press(_ sender: Any) {
+    @IBAction func pressLoad(_ sender: Any) {
         guard let url = NSOpenPanel().selectUrl else { return }
         guard let nsImage = NSImage(contentsOf: url) else { return }
         wheel.image = nsImage
@@ -90,11 +116,18 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
 
         var result: NSImage = NSImage()
         DispatchQueue.global(qos: .userInteractive).async {
-            result = makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), repLength: Int(rl), scale: s, rotation: r)
+            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), repLength: Int(rl), scale: s, rotation: r)
             DispatchQueue.main.async {
                 detail.imageView.image = result
             }
         }
+        
+    }
+    
+    func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, repLength: Int, scale: Double, rotation: Double) -> NSImage {
+        let opts = Options(width: 600, height: 480, repLength: repLength, scale: scale, rotation: Double.pi * rotation / 180)
+        let paper = wallpaper(options: opts, recipeFn: recipeFn, coefs: Array(formula[0..<terms]), nsImage: image)
+        return paper
     }
     
     func preProcessImage() {
@@ -103,8 +136,16 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
         wheel.image = bitmapToImage(toNSBitmapImageRep(preprocess(originalImage)))
     }
 
+    func showCoef(_ i: Int) {
+        n.intValue = Int32(formula[i-1].nCoord)
+        m.intValue = Int32(formula[i-1].mCoord)
+        magnitude.doubleValue = formula[i-1].anm.magnitude
+        direction.doubleValue = formula[i-1].anm.direction
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        showCoef(1)
     }
 }
 
@@ -148,13 +189,4 @@ func stringToPreprocess(_ str: String) -> (Image) -> Image {
     }
 }
 
-func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, repLength: Int, scale: Double, rotation: Double) -> NSImage {
-    let c0 = Coef(nCoord: 1, mCoord: 0, anm: Complex(0.75, 0.25))
-    let c1 = Coef(nCoord: -2, mCoord: 2, anm: Complex(0.2, -0.2))
-    let c2 = Coef(nCoord: 1, mCoord: -1, anm: Complex(0.6, 0.1))
-    
-    let opts = Options(width: 600, height: 480, repLength: repLength, scale: scale, rotation: rotation)
-    
-    let paper = wallpaper(options: opts, recipeFn: recipeFn, coefs: [c0, c1, c2], nsImage: image)
-    return paper
-}
+
