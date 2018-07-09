@@ -66,6 +66,7 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func incrementTerm(_ sender: NSStepper) {
+        self.view.window?.makeFirstResponder(self.view.window?.contentView)
         term.intValue = sender.intValue
         showCoef(Int(sender.intValue))
     }
@@ -143,7 +144,6 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
                 detail.imageView.image = result
             }
         }
-        
     }
     
     func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, repLength: Int, scale: Double, rotation: Double) -> NSImage {
