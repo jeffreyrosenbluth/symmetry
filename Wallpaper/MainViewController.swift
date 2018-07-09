@@ -1,5 +1,5 @@
 //
-//  SourceViewController.swift
+//  MainViewController.swift
 //  Wallpaper
 //
 //  Created by Jeffrey Rosenbluth on 5/25/18.

@@ -680,35 +680,12 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="PwQ-1B-Jeu" kind="relationship" relationship="window.shadowedContentViewController" id="AZa-pF-LRZ"/>
+                        <segue destination="ajg-Yh-L8P" kind="relationship" relationship="window.shadowedContentViewController" id="x5p-Rj-TdD"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="nqX-kZ-Okb">
-            <objects>
-                <splitViewController id="PwQ-1B-Jeu" customClass="ViewController" customModule="Wallpaper" customModuleProvider="target" sceneMemberID="viewController">
-                    <splitViewItems>
-                        <splitViewItem holdingPriority="260" id="HXS-hZ-tSw"/>
-                    </splitViewItems>
-                    <splitView key="splitView" misplaced="YES" dividerStyle="thin" vertical="YES" id="6MO-bF-El7">
-                        <rect key="frame" x="0.0" y="0.0" width="971" height="700"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <outlet property="delegate" destination="PwQ-1B-Jeu" id="TCH-Xw-nJf"/>
-                        </connections>
-                    </splitView>
-                    <connections>
-                        <outlet property="splitView" destination="6MO-bF-El7" id="mGl-00-Sjq"/>
-                        <segue destination="ajg-Yh-L8P" kind="relationship" relationship="splitItems" id="R4t-Bl-05W"/>
-                    </connections>
-                </splitViewController>
-                <customObject id="m61-dQ-1EG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-192" y="1041"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="Mos-Yd-TWr">
