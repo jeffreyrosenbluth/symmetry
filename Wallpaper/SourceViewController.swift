@@ -18,16 +18,21 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
                            Coef(), Coef(), Coef(), Coef(), Coef()
                            ]
     var terms: Int = 3
+    var rotation: Double = 0
+    var scale: Double = 0.5
+    var repeatLength: Double = 100
+    var param1: Double = 1
+    var param2: Double = 1
     
     @IBOutlet weak var group: NSPopUpButton!
     @IBOutlet weak var wheel: NSImageView!
-    @IBOutlet weak var param1: NSTextField!
-    @IBOutlet weak var param2: NSTextField!
+    @IBOutlet weak var param1Field: NSTextField!
+    @IBOutlet weak var param2Field: NSTextField!
     @IBOutlet weak var param1Label: NSTextField!
     @IBOutlet weak var param2Label: NSTextField!
-    @IBOutlet weak var repeatLength: NSTextField!
-    @IBOutlet weak var scale: NSTextField!
-    @IBOutlet weak var rotation: NSTextField!
+    @IBOutlet weak var repeatLengthField: NSTextField!
+    @IBOutlet weak var scaleField: NSTextField!
+    @IBOutlet weak var rotationField: NSTextField!
     @IBOutlet weak var preprocessMenu: NSPopUpButton!
     @IBOutlet weak var term: NSTextField!
     @IBOutlet weak var n: NSTextField!
@@ -40,18 +45,22 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
     override func controlTextDidEndEditing(_ obj: Notification) {
         let tf = obj.object as! NSTextField
         let i = Int(term.intValue - 1)
-        let v = Int(tf.intValue)
+        let x = Double(tf.doubleValue)
+        let v = Int(x)
         switch tf.tag {
+        case 8: param1 = x
+        case 9: param2 = x
+        case 10: repeatLength = x
+        case 11: scale = x
+        case 12: rotation = x
         case 13: formula[i].mCoord = v
         case 14: formula[i].nCoord = v
         case 15:
-            let r = Double(tf.doubleValue)
             let a = formula[i].anm.theta
-            formula[i].anm = Complex(r: r, theta: a)
+            formula[i].anm = Complex(r: x, theta: a)
         case 16:
-            let d = Double(tf.doubleValue)
             let r = formula[i].anm.magnitude
-            formula[i].anm = Complex(r: r, degrees: d)
+            formula[i].anm = Complex(r: r, degrees: x)
         default: break
         }
     }
@@ -78,28 +87,28 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
             param2Label.stringValue = "eta"
             param1Label.isHidden = false
             param2Label.isHidden = false
-            param1.isHidden = false
-            param2.isHidden = false
+            param1Field.isHidden = false
+            param2Field.isHidden = false
             return
         case "cm", "cmm":
             param1Label.stringValue = "b"
             param1Label.isHidden = false
             param2Label.isHidden = true
-            param1.isHidden = false
-            param2.isHidden = true
+            param1Field.isHidden = false
+            param2Field.isHidden = true
             return
         case "pm", "pg", "pmm", "pmg", "pgg" :
             param1Label.stringValue = "l"
             param1Label.isHidden = false
             param2Label.isHidden = true
-            param1.isHidden = false
-            param2.isHidden = true
+            param1Field.isHidden = false
+            param2Field.isHidden = true
             return
         case "p4", "p4m", "p4g", "p3", "p31m", "p3m1", "p6", "p6m":
             param1Label.isHidden = true
             param2Label.isHidden = true
-            param1.isHidden = true
-            param2.isHidden = true
+            param1Field.isHidden = true
+            param2Field.isHidden = true
             return
         default:
             return
@@ -117,20 +126,19 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func pressRun(_ sender: Any) {
+        self.view.window?.makeFirstResponder(self.view.window?.contentView)
         guard let splitView = parent as? NSSplitViewController else {return}
         guard let detail = splitView.childViewControllers[1] as? DetailViewController else { return }
         guard let grp = group.titleOfSelectedItem else {return}
         guard let img = wheel.image else {return}
-        let a1 = param1.doubleValue > 0 ? param1.doubleValue : 1
-        let a2 = param2.doubleValue > 0 ? param2.doubleValue : 1
-        let rl = repeatLength.intValue > 0 ? repeatLength.intValue : 100
-        let s = scale.doubleValue != 0 ? scale.doubleValue : 0.5
-        let r = rotation.doubleValue
+        let a1 = param1 > 0 ? param1 : 1
+        let a2 = param2 > 0 ? param2 : 1
+        let rl = repeatLength > 0 ? repeatLength : 100
+        let s = scale != 0 ? scale : 0.5
         var result: NSImage = NSImage()
         // End editing session by making window the first responder.
-        self.view.window?.makeFirstResponder(self.view.window?.contentView)
         DispatchQueue.global(qos: .userInteractive).async {
-            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), repLength: Int(rl), scale: s, rotation: r)
+            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), repLength: Int(rl), scale: s, rotation: self.rotation)
             DispatchQueue.main.async {
                 detail.imageView.image = result
             }

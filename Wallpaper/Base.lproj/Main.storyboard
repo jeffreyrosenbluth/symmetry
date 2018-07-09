@@ -710,7 +710,7 @@
                 </splitViewController>
                 <customObject id="m61-dQ-1EG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-231" y="850"/>
+            <point key="canvasLocation" x="-192" y="1041"/>
         </scene>
         <!--Source View Controller-->
         <scene sceneID="Mos-Yd-TWr">
@@ -796,7 +796,7 @@
                                     <action selector="pressRun:" target="ajg-Yh-L8P" id="V8n-8U-4a2"/>
                                 </connections>
                             </button>
-                            <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OMe-70-xuh">
+                            <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" tag="8" translatesAutoresizingMaskIntoConstraints="NO" id="OMe-70-xuh">
                                 <rect key="frame" x="183" y="659" width="70" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="1" drawsBackground="YES" id="LjS-qY-Jor">
@@ -809,7 +809,7 @@
                                     <outlet property="delegate" destination="ajg-Yh-L8P" id="Ob1-oJ-4NC"/>
                                 </connections>
                             </textField>
-                            <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dKs-Ui-QNW">
+                            <textField hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" tag="9" translatesAutoresizingMaskIntoConstraints="NO" id="dKs-Ui-QNW">
                                 <rect key="frame" x="183" y="633" width="70" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="1" drawsBackground="YES" id="D5f-m6-AAj">
@@ -869,31 +869,37 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ez6-2y-qtC">
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" tag="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ez6-2y-qtC">
                                 <rect key="frame" x="142" y="601" width="70" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="100" drawsBackground="YES" id="CSk-AL-kRe">
-                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="4E1-vL-ouw"/>
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="4E1-vL-ouw"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="ajg-Yh-L8P" id="ypC-Rp-Hfz"/>
+                                </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Waq-G7-w7r">
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="Waq-G7-w7r">
                                 <rect key="frame" x="142" y="574" width="70" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0.5" drawsBackground="YES" id="Upb-F2-Jb3">
-                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="hyx-A3-0xK"/>
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="hyx-A3-0xK"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="ajg-Yh-L8P" id="tLg-ye-Fv0"/>
+                                </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="jLz-to-QvH">
                                 <rect key="frame" x="142" y="546" width="70" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0" drawsBackground="YES" id="oE9-n0-BEO">
-                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="EDi-qO-22m"/>
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="EDi-qO-22m"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1124,14 +1130,14 @@
                         <outlet property="magnitude" destination="ZI2-v8-iMX" id="yov-lX-SFK"/>
                         <outlet property="n" destination="oLx-4B-DOG" id="TYp-hm-I10"/>
                         <outlet property="numberOfTerms" destination="wUw-P4-KqS" id="SYx-XQ-FgW"/>
-                        <outlet property="param1" destination="OMe-70-xuh" id="ogg-XQ-wYa"/>
+                        <outlet property="param1Field" destination="OMe-70-xuh" id="ogg-XQ-wYa"/>
                         <outlet property="param1Label" destination="cB8-57-hMd" id="SJT-BQ-6RR"/>
-                        <outlet property="param2" destination="dKs-Ui-QNW" id="gFx-e5-yng"/>
+                        <outlet property="param2Field" destination="dKs-Ui-QNW" id="gFx-e5-yng"/>
                         <outlet property="param2Label" destination="bsV-ja-p7u" id="kna-Vb-eAh"/>
                         <outlet property="preprocessMenu" destination="4Gk-l3-uFG" id="1EY-6f-Mrl"/>
-                        <outlet property="repeatLength" destination="Ez6-2y-qtC" id="zWO-gC-0n7"/>
-                        <outlet property="rotation" destination="jLz-to-QvH" id="Jfu-qZ-2Zy"/>
-                        <outlet property="scale" destination="Waq-G7-w7r" id="MKa-qJ-2b4"/>
+                        <outlet property="repeatLengthField" destination="Ez6-2y-qtC" id="zWO-gC-0n7"/>
+                        <outlet property="rotationField" destination="jLz-to-QvH" id="Jfu-qZ-2Zy"/>
+                        <outlet property="scaleField" destination="Waq-G7-w7r" id="MKa-qJ-2b4"/>
                         <outlet property="term" destination="gkm-iz-x5B" id="21D-BJ-Ek8"/>
                         <outlet property="termStepper" destination="Xa8-Sl-OQY" id="XC4-8i-og7"/>
                         <outlet property="wheel" destination="msA-sR-pOX" id="cry-sT-eMy"/>
@@ -1139,7 +1145,7 @@
                 </viewController>
                 <customObject id="VO9-aP-te7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="454" y="862.5"/>
+            <point key="canvasLocation" x="508" y="1016"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="VPJ-Ol-Lk4">
@@ -1162,7 +1168,7 @@
                 </viewController>
                 <customObject id="bla-QB-8Wf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="474.5" y="1036"/>
+            <point key="canvasLocation" x="1049" y="1016"/>
         </scene>
     </scenes>
 </document>
