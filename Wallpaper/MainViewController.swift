@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SourceViewController: NSViewController, NSTextFieldDelegate {
+class MainViewController: NSViewController, NSTextFieldDelegate {
     
     var originalImage: Image = Image(pixels: [], width: 0, height: 0)
     var formula: [Coef] = [Coef(nCoord: 1, mCoord: 0, anm: Complex(0.75, 0.25)),
@@ -41,6 +41,7 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var direction: NSTextField!
     @IBOutlet weak var termStepper: NSStepper!
     @IBOutlet weak var numberOfTerms: NSPopUpButton!
+    @IBOutlet weak var wallpaperImage: NSImageView!
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         let tf = obj.object as! NSTextField
@@ -128,8 +129,6 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func pressRun(_ sender: Any) {
         self.view.window?.makeFirstResponder(self.view.window?.contentView)
-        guard let splitView = parent as? NSSplitViewController else {return}
-        guard let detail = splitView.childViewControllers[1] as? DetailViewController else { return }
         guard let grp = group.titleOfSelectedItem else {return}
         guard let img = wheel.image else {return}
         let a1 = param1 > 0 ? param1 : 1
@@ -141,7 +140,7 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
         DispatchQueue.global(qos: .userInteractive).async {
             result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), repLength: Int(rl), scale: s, rotation: self.rotation)
             DispatchQueue.main.async {
-                detail.imageView.image = result
+                self.wallpaperImage.image = result
             }
         }
     }

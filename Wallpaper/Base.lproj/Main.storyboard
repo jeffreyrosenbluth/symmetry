@@ -693,7 +693,6 @@
                 <splitViewController id="PwQ-1B-Jeu" customClass="ViewController" customModule="Wallpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
                         <splitViewItem holdingPriority="260" id="HXS-hZ-tSw"/>
-                        <splitViewItem id="m85-rP-qhv"/>
                     </splitViewItems>
                     <splitView key="splitView" misplaced="YES" dividerStyle="thin" vertical="YES" id="6MO-bF-El7">
                         <rect key="frame" x="0.0" y="0.0" width="971" height="700"/>
@@ -705,19 +704,18 @@
                     <connections>
                         <outlet property="splitView" destination="6MO-bF-El7" id="mGl-00-Sjq"/>
                         <segue destination="ajg-Yh-L8P" kind="relationship" relationship="splitItems" id="R4t-Bl-05W"/>
-                        <segue destination="1y4-GQ-grp" kind="relationship" relationship="splitItems" id="diH-XX-q1G"/>
                     </connections>
                 </splitViewController>
                 <customObject id="m61-dQ-1EG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-192" y="1041"/>
         </scene>
-        <!--Source View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="Mos-Yd-TWr">
             <objects>
-                <viewController id="ajg-Yh-L8P" customClass="SourceViewController" customModule="Wallpaper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ajg-Yh-L8P" customClass="MainViewController" customModule="Wallpaper" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="XRt-Lg-GAq">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="700"/>
+                        <rect key="frame" x="0.0" y="0.0" width="980" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pNk-MH-OSD">
@@ -1119,6 +1117,11 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tJ2-xz-HbJ">
+                                <rect key="frame" x="322" y="128" width="606" height="486"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="KPj-jt-s1D"/>
+                            </imageView>
                         </subviews>
                     </view>
                     <connections>
@@ -1140,35 +1143,13 @@
                         <outlet property="scaleField" destination="Waq-G7-w7r" id="MKa-qJ-2b4"/>
                         <outlet property="term" destination="gkm-iz-x5B" id="21D-BJ-Ek8"/>
                         <outlet property="termStepper" destination="Xa8-Sl-OQY" id="XC4-8i-og7"/>
+                        <outlet property="wallpaperImage" destination="tJ2-xz-HbJ" id="aBM-Go-7Lz"/>
                         <outlet property="wheel" destination="msA-sR-pOX" id="cry-sT-eMy"/>
                     </connections>
                 </viewController>
                 <customObject id="VO9-aP-te7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="508" y="1016"/>
-        </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="VPJ-Ol-Lk4">
-            <objects>
-                <viewController id="1y4-GQ-grp" customClass="DetailViewController" customModule="Wallpaper" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="vb6-Se-eYV">
-                        <rect key="frame" x="0.0" y="0.0" width="691" height="700"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tJ2-xz-HbJ">
-                                <rect key="frame" x="42" y="107" width="606" height="486"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="KPj-jt-s1D"/>
-                            </imageView>
-                        </subviews>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="tJ2-xz-HbJ" id="CWb-Ki-rZu"/>
-                    </connections>
-                </viewController>
-                <customObject id="bla-QB-8Wf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1049" y="1016"/>
         </scene>
     </scenes>
 </document>

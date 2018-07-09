@@ -13,8 +13,7 @@
 		CE81755A20B8467200525391 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE81755820B8467200525391 /* Main.storyboard */; };
 		CE81756620B8467200525391 /* WallpaperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81756520B8467200525391 /* WallpaperTests.swift */; };
 		CE81757120B8467200525391 /* WallpaperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81757020B8467200525391 /* WallpaperUITests.swift */; };
-		CE81759420B852B000525391 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81759320B852B000525391 /* SourceViewController.swift */; };
-		CE81759620B8530E00525391 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81759520B8530E00525391 /* DetailViewController.swift */; };
+		CE81759420B852B000525391 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81759320B852B000525391 /* MainViewController.swift */; };
 		CECBCAD720C815CD005902E6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECBCAD620C815CD005902E6 /* Utilities.swift */; };
 		CECBCAD920D3EDD9005902E6 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECBCAD820D3EDD9005902E6 /* Pixel.swift */; };
 		CECBCADB20D6F58F005902E6 /* DomainColoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECBCADA20D6F58F005902E6 /* DomainColoring.swift */; };
@@ -53,8 +52,7 @@
 		CE81756C20B8467200525391 /* WallpaperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WallpaperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE81757020B8467200525391 /* WallpaperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperUITests.swift; sourceTree = "<group>"; };
 		CE81757220B8467200525391 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE81759320B852B000525391 /* SourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
-		CE81759520B8530E00525391 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		CE81759320B852B000525391 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CECBCAD620C815CD005902E6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		CECBCAD820D3EDD9005902E6 /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
 		CECBCADA20D6F58F005902E6 /* DomainColoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainColoring.swift; sourceTree = "<group>"; };
@@ -113,10 +111,9 @@
 				CE81755220B8467100525391 /* AppDelegate.swift */,
 				CE81755620B8467200525391 /* Assets.xcassets */,
 				CE81755820B8467200525391 /* Main.storyboard */,
-				CE81759320B852B000525391 /* SourceViewController.swift */,
+				CE81759320B852B000525391 /* MainViewController.swift */,
 				CE110A3C20EFFA9F00667385 /* MainWindowController.swift */,
 				CECBCAD620C815CD005902E6 /* Utilities.swift */,
-				CE81759520B8530E00525391 /* DetailViewController.swift */,
 				CECBCADA20D6F58F005902E6 /* DomainColoring.swift */,
 				CECBCADC20D6F60A005902E6 /* Complex.swift */,
 				CECBCAD820D3EDD9005902E6 /* Pixel.swift */,
@@ -286,12 +283,11 @@
 				CECBCADD20D6F60A005902E6 /* Complex.swift in Sources */,
 				CE81755320B8467100525391 /* AppDelegate.swift in Sources */,
 				CECBCADB20D6F58F005902E6 /* DomainColoring.swift in Sources */,
-				CE81759420B852B000525391 /* SourceViewController.swift in Sources */,
+				CE81759420B852B000525391 /* MainViewController.swift in Sources */,
 				CE110A3D20EFFA9F00667385 /* MainWindowController.swift in Sources */,
 				CECBCAD720C815CD005902E6 /* Utilities.swift in Sources */,
 				CECBCAD920D3EDD9005902E6 /* Pixel.swift in Sources */,
 				CEE0797220EBBE5B007AFA70 /* ViewController.swift in Sources */,
-				CE81759620B8530E00525391 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
