@@ -781,9 +781,9 @@
                                 </connections>
                             </popUpButton>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="msA-sR-pOX">
-                                <rect key="frame" x="18" y="23" width="240" height="240"/>
+                                <rect key="frame" x="15" y="20" width="246" height="246"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="5kh-5D-qlR"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="5kh-5D-qlR"/>
                             </imageView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Qo-mH-ozh">
                                 <rect key="frame" x="141" y="280" width="81" height="32"/>
@@ -1156,9 +1156,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tJ2-xz-HbJ">
-                                <rect key="frame" x="25" y="110" width="640" height="480"/>
+                                <rect key="frame" x="42" y="107" width="606" height="486"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="KPj-jt-s1D"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="KPj-jt-s1D"/>
                             </imageView>
                         </subviews>
                     </view>
