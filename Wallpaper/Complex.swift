@@ -39,6 +39,10 @@ struct Complex: Hashable {
         return sqrt(re * re + im * im)
     }
     
+    var theta: Double {
+        return atan2(im, re)
+    }
+    
     var direction: Double {
         return 180 * atan2(im, re) / Double.pi
     }

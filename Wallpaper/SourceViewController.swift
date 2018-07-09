@@ -37,10 +37,23 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var termStepper: NSStepper!
     @IBOutlet weak var numberOfTerms: NSPopUpButton!
     
-    @IBAction func nChanged(_ sender: NSTextField) {
-        let v = Int(sender.intValue)
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        let tf = obj.object as! NSTextField
         let i = Int(term.intValue - 1)
-        formula[i].nCoord = v
+        let v = Int(tf.intValue)
+        switch tf.tag {
+        case 13: formula[i].mCoord = v
+        case 14: formula[i].nCoord = v
+        case 15:
+            let r = Double(tf.doubleValue)
+            let a = formula[i].anm.theta
+            formula[i].anm = Complex(r: r, theta: a)
+        case 16:
+            let d = Double(tf.doubleValue)
+            let r = formula[i].anm.magnitude
+            formula[i].anm = Complex(r: r, degrees: d)
+        default: break
+        }
     }
     
     @IBAction func incrementTerm(_ sender: NSStepper) {
@@ -113,8 +126,9 @@ class SourceViewController: NSViewController, NSTextFieldDelegate {
         let rl = repeatLength.intValue > 0 ? repeatLength.intValue : 100
         let s = scale.doubleValue != 0 ? scale.doubleValue : 0.5
         let r = rotation.doubleValue
-
         var result: NSImage = NSImage()
+        // End editing session by making window the first responder.
+        self.view.window?.makeFirstResponder(self.view.window?.contentView)
         DispatchQueue.global(qos: .userInteractive).async {
             result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), repLength: Int(rl), scale: s, rotation: r)
             DispatchQueue.main.async {
