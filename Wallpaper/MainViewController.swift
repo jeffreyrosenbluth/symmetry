@@ -148,7 +148,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, repLength: Int, scale: Double, rotation: Double) -> NSImage {
         let opts = Options(width: 600, height: 480, repLength: repLength, scale: scale, rotation: Double.pi * rotation / 180)
         let paper = wallpaper(options: opts, recipeFn: recipeFn, coefs: Array(formula[0..<terms]), nsImage: image)
-        return paper
+        return bitmapToImage(paper)
     }
     
     func preProcessImage() {

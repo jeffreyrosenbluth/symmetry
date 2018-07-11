@@ -21,6 +21,7 @@ struct Coef: Hashable {
         self.mCoord = mCoord
         self.anm = anm
     }
+    
     init() {
         nCoord = 0
         mCoord = 0
@@ -119,6 +120,7 @@ func blend(_ options: Options, _ recipe1: @escaping Recipe, _ recipe2: @escaping
         let a = (z.re + m) / (2 * m)
         return recipe2(z).scale(a) + recipe1(z).scale(1 - a)
     }
+    
     return domainColoring(options, rcp, wheel)
 }
 
@@ -132,19 +134,23 @@ func morph(_ options: Options, _ recipe: @escaping Recipe, _ cut: Double, _ whee
             return (2 / (2 * cut - 1)) * (u - 0.5)
         }
     }
+    
     func rcp(_ z: Complex) -> Complex {
         let t = Double(options.width / options.repLength)
         return Complex(0,1).scale(exp(Double.pi * phi(cut, ((z.re + t / 2) / t)))) * recipe(z)
     }
-    return domainColoring(options, recipe, wheel)
+    
+    return domainColoring(options, rcp, wheel)
 }
 
-func wallpaper(options: Options, recipeFn: (([Coef]) -> Recipe), coefs: [Coef], nsImage: NSImage) -> NSImage {
+func wallpaper(options: Options, recipeFn: (([Coef]) -> Recipe), coefs: [Coef], nsImage: NSImage) -> NSBitmapImageRep {
     let image = imageToBitmap(nsImage)
     let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
     let pixels = Image(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
     let outImage = domainColoring(options, recipeFn(coefs), pixels)
-    return bitmapToImage(toNSBitmapImageRep(outImage))
+//    let testout = toNSBitmapImageRep(outImage)
+//    testout.writePNG(toURL: URL(fileURLWithPath: "/users/jeffreyrosenbluth/Desktop/test2.png"))
+    return toNSBitmapImageRep(outImage)
 }
 
 // -------------------------------------------------------------------------------------------------

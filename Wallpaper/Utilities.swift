@@ -29,3 +29,14 @@ extension NSOpenPanel {
         return runModal() == .OK ? urls : nil
     }
 }
+
+extension NSBitmapImageRep {
+    func writePNG(toURL url: URL) {
+        let imgData = self.representation(using: .png, properties: [.compressionFactor : NSNumber(floatLiteral: 1.0)])
+        do {
+            try imgData?.write(to: url)
+        } catch let error {
+            print("\(self.self) Error Function '\(#function)' Line: \(#line) \(error.localizedDescription)")
+        }
+    }
+}
