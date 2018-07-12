@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE110A3D20EFFA9F00667385 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE110A3C20EFFA9F00667385 /* MainWindowController.swift */; };
+		CE77E75720F688E000043403 /* ExportAccessory.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE77E75620F688E000043403 /* ExportAccessory.xib */; };
 		CE81755320B8467100525391 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81755220B8467100525391 /* AppDelegate.swift */; };
 		CE81755720B8467200525391 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE81755620B8467200525391 /* Assets.xcassets */; };
 		CE81755A20B8467200525391 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE81755820B8467200525391 /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		CE110A3C20EFFA9F00667385 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		CE77E75620F688E000043403 /* ExportAccessory.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportAccessory.xib; sourceTree = "<group>"; };
 		CE81754F20B8467100525391 /* Wallpaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wallpaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE81755220B8467100525391 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE81755620B8467200525391 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				CE81755620B8467200525391 /* Assets.xcassets */,
 				CE81755820B8467200525391 /* Main.storyboard */,
 				CE81759320B852B000525391 /* MainViewController.swift */,
+				CE77E75620F688E000043403 /* ExportAccessory.xib */,
 				CE110A3C20EFFA9F00667385 /* MainWindowController.swift */,
 				CECBCAD620C815CD005902E6 /* Utilities.swift */,
 				CECBCADA20D6F58F005902E6 /* DomainColoring.swift */,
@@ -254,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE77E75720F688E000043403 /* ExportAccessory.xib in Resources */,
 				CE81755720B8467200525391 /* Assets.xcassets in Resources */,
 				CE81755A20B8467200525391 /* Main.storyboard in Resources */,
 			);

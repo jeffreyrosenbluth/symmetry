@@ -91,6 +91,12 @@
                                                 <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Export…" id="A45-CP-jfa">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="pressExport:" target="Ady-hI-5gd" id="Rq2-8R-ROW"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Revert to Saved" keyEquivalent="r" id="KaW-ft-85H">
                                             <connections>
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
@@ -1122,10 +1128,10 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="KPj-jt-s1D"/>
                             </imageView>
                             <box fixedFrame="YES" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="vwf-x5-5A0">
-                                <rect key="frame" x="289" y="-9" width="1" height="711"/>
+                                <rect key="frame" x="287" y="-9" width="6" height="711"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="Dok-MR-Bsp">
-                                    <rect key="frame" x="1.5" y="2" width="0.0" height="707"/>
+                                    <rect key="frame" x="2" y="2" width="2" height="707"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </box>
@@ -1157,6 +1163,18 @@
                 <customObject id="VO9-aP-te7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="508" y="1016"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ypd-Ij-0yq">
+            <objects>
+                <viewController id="ZhG-pw-aQl" sceneMemberID="viewController">
+                    <view key="view" id="IUG-N5-Sr4">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="3fp-kL-wMr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
 </document>

@@ -23,6 +23,9 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     var repeatLength: Double = 100
     var param1: Double = 1
     var param2: Double = 1
+    var savePanel: NSSavePanel?
+    var exportWidth: Int = 600
+    var exportHeight: Int = 480
     
     @IBOutlet weak var group: NSPopUpButton!
     @IBOutlet weak var wheel: NSImageView!
@@ -42,6 +45,9 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var termStepper: NSStepper!
     @IBOutlet weak var numberOfTerms: NSPopUpButton!
     @IBOutlet weak var wallpaperImage: NSImageView!
+    @IBOutlet weak var imageTypePopup: NSPopUpButton!
+    @IBOutlet weak var widthField: NSTextField!
+    @IBOutlet weak var heightField: NSTextField!
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         let tf = obj.object as! NSTextField
@@ -135,20 +141,43 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         let a2 = param2 > 0 ? param2 : 1
         let rl = repeatLength > 0 ? repeatLength : 100
         let s = scale != 0 ? scale : 0.5
-        var result: NSImage = NSImage()
+        var result: NSBitmapImageRep?
         // End editing session by making window the first responder.
         DispatchQueue.global(qos: .userInteractive).async {
-            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), repLength: Int(rl), scale: s, rotation: self.rotation)
+            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: 600, height: 480, repLength: Int(rl), scale: s, rotation: self.rotation)
             DispatchQueue.main.async {
-                self.wallpaperImage.image = result
+                self.wallpaperImage.image = bitmapToImage(result!)
             }
         }
     }
+        
+    @IBAction func pressExport(_ sender: Any) {
+        self.view.window?.makeFirstResponder(self.view.window?.contentView)
+        let savePanel = NSSavePanel()
+        var topLevelObjects : NSArray?
+        guard let grp = group.titleOfSelectedItem else {return}
+        guard let img = wheel.image else {return}
+        let a1 = param1 > 0 ? param1 : 1
+        let a2 = param2 > 0 ? param2 : 1
+        let rl = repeatLength > 0 ? repeatLength : 100
+        let s = scale != 0 ? scale : 0.5
+        savePanel.title = "Save As:"
+        savePanel.prompt = "Save"
+        Bundle.main.loadNibNamed(NSNib.Name(rawValue: "ExportAccessory"), owner: self, topLevelObjects: &topLevelObjects)
+        savePanel.accessoryView = topLevelObjects!.first(where: { $0 is NSView }) as? NSView
+        savePanel.runModal()
+        var result: NSBitmapImageRep?
+        exportWidth = Int(widthField.intValue)
+        exportHeight = Int(heightField.intValue)
+        DispatchQueue.global(qos: .background).async {
+            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth, height: self.exportHeight, repLength: Int(rl), scale: s, rotation: self.rotation)
+            result?.writePNG(toURL: savePanel.url!)
+        }
+    }
     
-    func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, repLength: Int, scale: Double, rotation: Double) -> NSImage {
-        let opts = Options(width: 600, height: 480, repLength: repLength, scale: scale, rotation: Double.pi * rotation / 180)
-        let paper = wallpaper(options: opts, recipeFn: recipeFn, coefs: Array(formula[0..<terms]), nsImage: image)
-        return bitmapToImage(paper)
+    func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, width: Int, height: Int, repLength: Int, scale: Double, rotation: Double) -> NSBitmapImageRep {
+        let opts = Options(width: width, height: height, repLength: repLength, scale: scale, rotation: Double.pi * rotation / 180)
+        return wallpaper(options: opts, recipeFn: recipeFn, coefs: Array(formula[0..<terms]), nsImage: image)
     }
     
     func preProcessImage() {
