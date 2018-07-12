@@ -24,8 +24,8 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     var param1: Double = 1
     var param2: Double = 1
     var savePanel: NSSavePanel?
-    var exportWidth: Int = 600
-    var exportHeight: Int = 480
+    var exportWidth: Int?
+    var exportHeight: Int?
     
     @IBOutlet weak var group: NSPopUpButton!
     @IBOutlet weak var wheel: NSImageView!
@@ -167,11 +167,17 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         savePanel.accessoryView = topLevelObjects!.first(where: { $0 is NSView }) as? NSView
         savePanel.runModal()
         var result: NSBitmapImageRep?
-        exportWidth = Int(widthField.intValue)
-        exportHeight = Int(heightField.intValue)
+        exportWidth = widthField.intValue == 0 ? 600 : Int(widthField.intValue)
+        exportHeight = heightField.intValue == 0 ? 480 : Int(heightField.intValue)
         DispatchQueue.global(qos: .background).async {
-            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth, height: self.exportHeight, repLength: Int(rl), scale: s, rotation: self.rotation)
-            result?.writePNG(toURL: savePanel.url!)
+            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), scale: s, rotation: self.rotation)
+            switch self.imageTypePopup.titleOfSelectedItem {
+            case "PNG": result?.writeImageRep(toURL: savePanel.url!, filetype: .png)
+            case "JPEG": result?.writeImageRep(toURL: savePanel.url!, filetype: .jpeg)
+            case "TIFF": result?.writeImageRep(toURL: savePanel.url!, filetype: .tiff)
+            default: result?.writeImageRep(toURL: savePanel.url!, filetype: .png)
+            }
+            result?.writeImageRep(toURL: savePanel.url!, filetype: .png)
         }
     }
     

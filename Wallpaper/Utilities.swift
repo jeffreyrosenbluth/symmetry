@@ -31,8 +31,8 @@ extension NSOpenPanel {
 }
 
 extension NSBitmapImageRep {
-    func writePNG(toURL url: URL) {
-        let imgData = self.representation(using: .png, properties: [.compressionFactor : NSNumber(floatLiteral: 1.0)])
+    func writeImageRep(toURL url: URL, filetype: FileType) {
+        let imgData = self.representation(using: filetype, properties: [.compressionFactor : NSNumber(floatLiteral: 1.0)])
         do {
             try imgData?.write(to: url)
         } catch let error {
