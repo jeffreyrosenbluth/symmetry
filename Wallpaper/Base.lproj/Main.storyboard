@@ -1164,17 +1164,5 @@
             </objects>
             <point key="canvasLocation" x="508" y="1016"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Ypd-Ij-0yq">
-            <objects>
-                <viewController id="ZhG-pw-aQl" sceneMemberID="viewController">
-                    <view key="view" id="IUG-N5-Sr4">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </viewController>
-                <customObject id="3fp-kL-wMr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
 </document>

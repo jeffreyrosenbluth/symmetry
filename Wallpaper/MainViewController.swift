@@ -23,7 +23,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     var repeatLength: Double = 100
     var param1: Double = 1
     var param2: Double = 1
-    var savePanel: NSSavePanel?
+    let savePanel: NSSavePanel = NSSavePanel()
     var exportWidth: Int?
     var exportHeight: Int?
     
@@ -151,9 +151,19 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         }
     }
         
+    @IBAction func changeFiletype(_ sender: NSPopUpButton) {
+        switch sender.titleOfSelectedItem {
+        case "PNG":
+            savePanel.allowedFileTypes = ["png"]
+//            savePanel.nameFieldStringValue = "image.png"
+        case "JPEG": savePanel.allowedFileTypes = ["jpg"]
+        case "TIFF": savePanel.allowedFileTypes = ["tiff"]
+        default: savePanel.allowedFileTypes = ["png"]
+        }
+    }
+    
     @IBAction func pressExport(_ sender: Any) {
         self.view.window?.makeFirstResponder(self.view.window?.contentView)
-        let savePanel = NSSavePanel()
         var topLevelObjects : NSArray?
         guard let grp = group.titleOfSelectedItem else {return}
         guard let img = wheel.image else {return}
@@ -163,22 +173,23 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         let s = scale != 0 ? scale : 0.5
         savePanel.title = "Save As:"
         savePanel.prompt = "Save"
+        savePanel.allowedFileTypes = ["png"]
         Bundle.main.loadNibNamed(NSNib.Name(rawValue: "ExportAccessory"), owner: self, topLevelObjects: &topLevelObjects)
         savePanel.accessoryView = topLevelObjects!.first(where: { $0 is NSView }) as? NSView
-        savePanel.runModal()
-        var result: NSBitmapImageRep?
-        exportWidth = widthField.intValue == 0 ? 600 : Int(widthField.intValue)
-        exportHeight = heightField.intValue == 0 ? 480 : Int(heightField.intValue)
-        let filetype = imageTypePopup.titleOfSelectedItem
-        DispatchQueue.global(qos: .background).async {
-            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), scale: s, rotation: self.rotation)
-            switch filetype {
-            case "PNG": result?.writeImageRep(toURL: savePanel.url!, filetype: .png)
-            case "JPEG": result?.writeImageRep(toURL: savePanel.url!, filetype: .jpeg)
-            case "TIFF": result?.writeImageRep(toURL: savePanel.url!, filetype: .tiff)
-            default: result?.writeImageRep(toURL: savePanel.url!, filetype: .png)
+        if savePanel.runModal() == NSApplication.ModalResponse.OK {
+            var result: NSBitmapImageRep?
+            exportWidth = widthField.intValue == 0 ? 600 : Int(widthField.intValue)
+            exportHeight = heightField.intValue == 0 ? 480 : Int(heightField.intValue)
+            let filetype = imageTypePopup.titleOfSelectedItem
+            DispatchQueue.global(qos: .background).async {
+                result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), scale: s, rotation: self.rotation)
+                switch filetype {
+                case "PNG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .png)
+                case "JPEG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .jpeg)
+                case "TIFF": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .tiff)
+                default: result?.writeImageRep(toURL: self.savePanel.url!, filetype: .png)
+                }
             }
-            result?.writeImageRep(toURL: savePanel.url!, filetype: .png)
         }
     }
     

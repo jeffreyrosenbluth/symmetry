@@ -33,6 +33,9 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="changeFiletype:" target="-2" id="q5l-Cl-v0D"/>
+                    </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" tag="17" translatesAutoresizingMaskIntoConstraints="NO" id="sZd-Ze-gJF">
                     <rect key="frame" x="192" y="60" width="84" height="22"/>
