@@ -169,9 +169,10 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         var result: NSBitmapImageRep?
         exportWidth = widthField.intValue == 0 ? 600 : Int(widthField.intValue)
         exportHeight = heightField.intValue == 0 ? 480 : Int(heightField.intValue)
+        let filetype = imageTypePopup.titleOfSelectedItem
         DispatchQueue.global(qos: .background).async {
             result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), scale: s, rotation: self.rotation)
-            switch self.imageTypePopup.titleOfSelectedItem {
+            switch filetype {
             case "PNG": result?.writeImageRep(toURL: savePanel.url!, filetype: .png)
             case "JPEG": result?.writeImageRep(toURL: savePanel.url!, filetype: .jpeg)
             case "TIFF": result?.writeImageRep(toURL: savePanel.url!, filetype: .tiff)
