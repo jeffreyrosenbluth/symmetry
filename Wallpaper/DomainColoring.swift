@@ -95,7 +95,7 @@ func color(options: Options, recipe: @escaping Recipe, image: Image, i: Int, j: 
     let h1 = image.height
     let f = focus(w: options.width, h: options.height, l: options.repLength, recipe: recipe)
     let z = f(Complex(Double(i), Double(j)))
-           .scale(0.5 * options.scale * Double(min(w1, h1)))
+           .scale(options.scale * Double(min(w1, h1)))
            .rotate(options.rotation)
     func clamp(_ m: Int, _ n: Int) -> Pixel {
         if (m < 0) || (n < 0) || m >= w1 || n >= h1 {
@@ -148,8 +148,6 @@ func wallpaper(options: Options, recipeFn: (([Coef]) -> Recipe), coefs: [Coef], 
     let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
     let pixels = Image(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
     let outImage = domainColoring(options, recipeFn(coefs), pixels)
-//    let testout = toNSBitmapImageRep(outImage)
-//    testout.writePNG(toURL: URL(fileURLWithPath: "/users/jeffreyrosenbluth/Desktop/test2.png"))
     return toNSBitmapImageRep(outImage)
 }
 

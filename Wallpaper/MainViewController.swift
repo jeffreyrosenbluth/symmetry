@@ -82,6 +82,10 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         let n = numberOfTerms.titleOfSelectedItem!
         terms = Int(n)!
         termStepper.maxValue = Double(n)!
+        if term.intValue > terms {
+            term.intValue = Int32(terms)
+            showCoef(terms)
+        }
     }
     
     @IBAction func preprocessChanged(_ sender: Any) {
@@ -155,7 +159,6 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         switch sender.titleOfSelectedItem {
         case "PNG":
             savePanel.allowedFileTypes = ["png"]
-//            savePanel.nameFieldStringValue = "image.png"
         case "JPEG": savePanel.allowedFileTypes = ["jpg"]
         case "TIFF": savePanel.allowedFileTypes = ["tiff"]
         default: savePanel.allowedFileTypes = ["png"]
