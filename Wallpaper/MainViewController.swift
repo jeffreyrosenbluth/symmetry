@@ -11,15 +11,15 @@ import Cocoa
 class MainViewController: NSViewController, NSTextFieldDelegate {
     
     var originalImage: Image = Image(pixels: [], width: 0, height: 0)
-    var formula: [Coef] = [Coef(nCoord: 1, mCoord: 0, anm: Complex(0.75, 0.25)),
-                           Coef(nCoord: -2, mCoord: 2, anm: Complex(0.2, -0.2)),
-                           Coef(nCoord: 1, mCoord: -1, anm: Complex(0.6, 0.1)),
+    var formula: [Coef] = [Coef(nCoord: 1, mCoord: 0, anm: Complex(r: 0.8, degrees: 20)),
+                           Coef(nCoord: -2, mCoord: 2, anm: Complex(r: 0.3, degrees: 315)),
+                           Coef(nCoord: 1, mCoord: -1, anm: Complex(r: 0.6, degrees: 90)),
                            Coef(), Coef(),
                            Coef(), Coef(), Coef(), Coef(), Coef()
                            ]
     var terms: Int = 3
     var rotation: Double = 0
-    var scale: Double = 0.5
+    var scale: Double = 0.25
     var repeatLength: Double = 100
     var param1: Double = 1
     var param2: Double = 1
@@ -48,6 +48,8 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var imageTypePopup: NSPopUpButton!
     @IBOutlet weak var widthField: NSTextField!
     @IBOutlet weak var heightField: NSTextField!
+    @IBOutlet weak var exportProgress: NSProgressIndicator!
+    @IBOutlet weak var exportLabel: NSTextField!
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         let tf = obj.object as! NSTextField
@@ -180,6 +182,10 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         Bundle.main.loadNibNamed(NSNib.Name(rawValue: "ExportAccessory"), owner: self, topLevelObjects: &topLevelObjects)
         savePanel.accessoryView = topLevelObjects!.first(where: { $0 is NSView }) as? NSView
         if savePanel.runModal() == NSApplication.ModalResponse.OK {
+            exportProgress.isHidden = false
+            exportProgress.startAnimation(self)
+            exportLabel.isHidden = false
+            exportLabel.stringValue = "exporting \(savePanel.nameFieldStringValue)"
             var result: NSBitmapImageRep?
             exportWidth = widthField.intValue == 0 ? 600 : Int(widthField.intValue)
             exportHeight = heightField.intValue == 0 ? 480 : Int(heightField.intValue)
@@ -191,6 +197,11 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
                 case "JPEG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .jpeg)
                 case "TIFF": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .tiff)
                 default: result?.writeImageRep(toURL: self.savePanel.url!, filetype: .png)
+                }
+                DispatchQueue.main.async {
+                    self.exportProgress.stopAnimation(self)
+                    self.exportProgress.isHidden = true
+                    self.exportLabel.isHidden = true
                 }
             }
         }

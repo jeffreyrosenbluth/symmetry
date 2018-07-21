@@ -888,7 +888,7 @@
                             <textField verticalHuggingPriority="750" fixedFrame="YES" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="Waq-G7-w7r">
                                 <rect key="frame" x="142" y="574" width="70" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0.5" drawsBackground="YES" id="Upb-F2-Jb3">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0.25" drawsBackground="YES" id="Upb-F2-Jb3">
                                     <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="hyx-A3-0xK"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1135,12 +1135,27 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </box>
+                            <progressIndicator hidden="YES" wantsLayer="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="6eD-g3-neb">
+                                <rect key="frame" x="325" y="54" width="100" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Cn-x9-CFS">
+                                <rect key="frame" x="447" y="55" width="480" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exporting" id="2rH-ze-amk">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="Rotation" destination="jLz-to-QvH" id="dsi-oF-mVc"/>
                         <outlet property="Scale" destination="Waq-G7-w7r" id="mu4-oK-Zmx"/>
                         <outlet property="direction" destination="M9P-jm-DBq" id="FTr-t9-uLZ"/>
+                        <outlet property="exportLabel" destination="6Cn-x9-CFS" id="4MZ-9Z-v1c"/>
+                        <outlet property="exportProgress" destination="6eD-g3-neb" id="29I-86-oJL"/>
                         <outlet property="group" destination="pNk-MH-OSD" id="RxX-eT-SWZ"/>
                         <outlet property="m" destination="zT9-hK-301" id="iza-Zp-ewE"/>
                         <outlet property="magnitude" destination="ZI2-v8-iMX" id="yov-lX-SFK"/>
