@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE110A3D20EFFA9F00667385 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE110A3C20EFFA9F00667385 /* MainWindowController.swift */; };
+		CE583D2421050D1A00D42AF6 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE583D2321050D1A00D42AF6 /* Document.swift */; };
 		CE77E75720F688E000043403 /* ExportAccessory.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE77E75620F688E000043403 /* ExportAccessory.xib */; };
 		CE81755320B8467100525391 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81755220B8467100525391 /* AppDelegate.swift */; };
 		CE81755720B8467200525391 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE81755620B8467200525391 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		CE110A3C20EFFA9F00667385 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		CE583D2321050D1A00D42AF6 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		CE77E75620F688E000043403 /* ExportAccessory.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportAccessory.xib; sourceTree = "<group>"; };
 		CE81754F20B8467100525391 /* Wallpaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wallpaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE81755220B8467100525391 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				CECBCAD820D3EDD9005902E6 /* Pixel.swift */,
 				CEE0797120EBBE5B007AFA70 /* ViewController.swift */,
 				CE81755B20B8467200525391 /* Info.plist */,
+				CE583D2321050D1A00D42AF6 /* Document.swift */,
 				CE81755C20B8467200525391 /* Wallpaper.entitlements */,
 				CE81757E20B84FEE00525391 /* Content */,
 			);
@@ -289,6 +292,7 @@
 				CECBCADB20D6F58F005902E6 /* DomainColoring.swift in Sources */,
 				CE81759420B852B000525391 /* MainViewController.swift in Sources */,
 				CE110A3D20EFFA9F00667385 /* MainWindowController.swift in Sources */,
+				CE583D2421050D1A00D42AF6 /* Document.swift in Sources */,
 				CECBCAD720C815CD005902E6 /* Utilities.swift in Sources */,
 				CECBCAD920D3EDD9005902E6 /* Pixel.swift in Sources */,
 				CEE0797220EBBE5B007AFA70 /* ViewController.swift in Sources */,
