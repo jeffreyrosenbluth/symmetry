@@ -9,7 +9,11 @@
 import Cocoa
 
 class MainViewController: NSViewController, NSTextFieldDelegate {
-    
+    var document: Document {
+        let wpDocument = view.window?.windowController?.document as? Document
+        assert(wpDocument != nil, "Unable to find the document for this view controller.")
+        return wpDocument!
+    }
     var originalImage: Image = Image(pixels: [], width: 0, height: 0)
     var formula: [Coef] = [Coef(nCoord: 1, mCoord: 0, anm: Complex(r: 0.8, degrees: 20)),
                            Coef(nCoord: -2, mCoord: 2, anm: Complex(r: 0.3, degrees: 315)),
@@ -27,6 +31,8 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     var exportWidth: Int?
     var exportHeight: Int?
     
+    
+        
     @IBOutlet weak var group: NSPopUpButton!
     @IBOutlet weak var wheel: NSImageView!
     @IBOutlet weak var param1Field: NSTextField!
@@ -51,25 +57,54 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var exportProgress: NSProgressIndicator!
     @IBOutlet weak var exportLabel: NSTextField!
     
+    func updateUI() {
+        group.selectItem(withTitle: document.wallpaperModel.group)
+        param1Field.doubleValue = document.wallpaperModel.param1
+        param2Field.doubleValue = document.wallpaperModel.param2
+        repeatLengthField.intValue = Int32(document.wallpaperModel.options.repLength)
+        scaleField.doubleValue = document.wallpaperModel.options.scale
+        rotationField.doubleValue = document.wallpaperModel.options.rotation
+        preprocessMenu.selectItem(withTitle: document.wallpaperModel.preprocess)
+//        preProcessImage()
+//        numberOfTerms.stringValue = "\(document.wallpaperModel.numOfTerms)"
+        numberOfTerms.intValue = Int32(document.wallpaperModel.numOfTerms)
+    }
+    
     override func controlTextDidEndEditing(_ obj: Notification) {
         let tf = obj.object as! NSTextField
         let i = Int(term.intValue - 1)
         let x = Double(tf.doubleValue)
         let v = Int(x)
         switch tf.tag {
-        case 8: param1 = x
-        case 9: param2 = x
-        case 10: repeatLength = x
-        case 11: scale = x
-        case 12: rotation = x
-        case 13: formula[i].mCoord = v
-        case 14: formula[i].nCoord = v
+        case 8:
+            param1 = x
+            document.wallpaperModel.param1 = x
+        case 9:
+            param2 = x
+            document.wallpaperModel.param2 = x
+        case 10:
+            repeatLength = x
+            document.wallpaperModel.options.repLength = v
+        case 11:
+            scale = x
+            document.wallpaperModel.options.scale = x
+        case 12:
+            rotation = x
+            document.wallpaperModel.options.rotation = x
+        case 13:
+            formula[i].mCoord = v
+            document.wallpaperModel.terms[i].mCoord = v
+        case 14:
+            formula[i].nCoord = v
+            document.wallpaperModel.terms[i].nCoord = v
         case 15:
             let a = formula[i].anm.theta
             formula[i].anm = Complex(r: x, theta: a)
+            document.wallpaperModel.terms[i].anm = formula[i].anm
         case 16:
             let r = formula[i].anm.magnitude
             formula[i].anm = Complex(r: r, degrees: x)
+            document.wallpaperModel.terms[i].anm = formula[i].anm
         default: break
         }
     }
@@ -83,6 +118,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func termsChanged(_ sender: NSPopUpButton) {
         let n = numberOfTerms.titleOfSelectedItem!
         terms = Int(n)!
+        document.wallpaperModel.numOfTerms = terms
         termStepper.maxValue = Double(n)!
         if term.intValue > terms {
             term.intValue = Int32(terms)
@@ -90,11 +126,13 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    @IBAction func preprocessChanged(_ sender: Any) {
+    @IBAction func preprocessChanged(_ sender: NSPopUpButton) {
+        document.wallpaperModel.preprocess = sender.titleOfSelectedItem!
         preProcessImage()
     }
     
     @IBAction func changeGroup(_ sender: NSPopUpButton) {
+        document.wallpaperModel.group = sender.titleOfSelectedItem!
         switch sender.titleOfSelectedItem! {
         case "p1", "p2":
             param1Label.stringValue = "xi"
@@ -131,6 +169,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func pressLoad(_ sender: Any) {
         guard let url = NSOpenPanel().selectUrl else { return }
+        document.wallpaperModel.wheel = url
         guard let nsImage = NSImage(contentsOf: url) else { return }
         wheel.image = nsImage
         let image = imageToBitmap(nsImage)
@@ -228,6 +267,10 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         showCoef(1)
+    }
+    
+    override func viewWillAppear() {
+        updateUI()
     }
 }
 

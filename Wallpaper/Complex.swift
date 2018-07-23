@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Complex: Hashable {
+struct Complex: Hashable, Codable {
     let re: Double
     let im: Double
     

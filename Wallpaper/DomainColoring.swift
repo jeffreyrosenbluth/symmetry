@@ -11,7 +11,7 @@ import Cocoa
 
 typealias  Recipe = (Complex) -> Complex
 
-struct Coef: Hashable {
+struct Coef: Hashable, Codable {
     var nCoord: Int
     var mCoord: Int
     var anm: Complex
@@ -51,12 +51,12 @@ extension Coef {
     }
 }
 
-struct Options {
+struct Options: Codable {
     let width: Int
     let height: Int
-    let repLength: Int
-    let scale: Double
-    let rotation: Double
+    var repLength: Int
+    var scale: Double
+    var rotation: Double
 }
 
 func enm(n: Int, m: Int, x: Double, y: Double) -> Complex {
