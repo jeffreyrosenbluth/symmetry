@@ -9,24 +9,15 @@
 import Cocoa
 
 class MainViewController: NSViewController, NSTextFieldDelegate {
+    
     var document: Document {
         let wpDocument = view.window?.windowController?.document as? Document
         assert(wpDocument != nil, "Unable to find the document for this view controller.")
         return wpDocument!
     }
+    
+    var wp = WallpaperModel()
     var originalImage: Image = Image(pixels: [], width: 0, height: 0)
-    var formula: [Coef] = [Coef(nCoord: 1, mCoord: 0, anm: Complex(r: 0.8, degrees: 20)),
-                           Coef(nCoord: -2, mCoord: 2, anm: Complex(r: 0.3, degrees: 315)),
-                           Coef(nCoord: 1, mCoord: -1, anm: Complex(r: 0.6, degrees: 90)),
-                           Coef(), Coef(),
-                           Coef(), Coef(), Coef(), Coef(), Coef()
-                           ]
-    var terms: Int = 3
-    var rotation: Double = 0
-    var scale: Double = 0.25
-    var repeatLength: Double = 100
-    var param1: Double = 1
-    var param2: Double = 1
     let savePanel: NSSavePanel = NSSavePanel()
     var exportWidth: Int?
     var exportHeight: Int?
@@ -65,9 +56,9 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         scaleField.doubleValue = document.wallpaperModel.options.scale
         rotationField.doubleValue = document.wallpaperModel.options.rotation
         preprocessMenu.selectItem(withTitle: document.wallpaperModel.preprocess)
-//        preProcessImage()
-//        numberOfTerms.stringValue = "\(document.wallpaperModel.numOfTerms)"
+        numberOfTerms.selectItem(at: document.wallpaperModel.numOfTerms - 1)
         numberOfTerms.intValue = Int32(document.wallpaperModel.numOfTerms)
+        termsChanged(numberOfTerms)
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
@@ -77,34 +68,34 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         let v = Int(x)
         switch tf.tag {
         case 8:
-            param1 = x
+            wp.param1 = x
             document.wallpaperModel.param1 = x
         case 9:
-            param2 = x
+            wp.param2 = x
             document.wallpaperModel.param2 = x
         case 10:
-            repeatLength = x
+            wp.options.repLength = v
             document.wallpaperModel.options.repLength = v
         case 11:
-            scale = x
+            wp.options.scale = x
             document.wallpaperModel.options.scale = x
         case 12:
-            rotation = x
+            wp.options.rotation = x
             document.wallpaperModel.options.rotation = x
         case 13:
-            formula[i].mCoord = v
+            wp.terms[i].mCoord = v
             document.wallpaperModel.terms[i].mCoord = v
         case 14:
-            formula[i].nCoord = v
+            wp.terms[i].nCoord = v
             document.wallpaperModel.terms[i].nCoord = v
         case 15:
-            let a = formula[i].anm.theta
-            formula[i].anm = Complex(r: x, theta: a)
-            document.wallpaperModel.terms[i].anm = formula[i].anm
+            let a = wp.terms[i].anm.theta
+            wp.terms[i].anm = Complex(r: x, theta: a)
+            document.wallpaperModel.terms[i].anm = wp.terms[i].anm
         case 16:
-            let r = formula[i].anm.magnitude
-            formula[i].anm = Complex(r: r, degrees: x)
-            document.wallpaperModel.terms[i].anm = formula[i].anm
+            let r = wp.terms[i].anm.magnitude
+            wp.terms[i].anm = Complex(r: r, degrees: x)
+            document.wallpaperModel.terms[i].anm = wp.terms[i].anm
         default: break
         }
     }
@@ -117,12 +108,12 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func termsChanged(_ sender: NSPopUpButton) {
         let n = numberOfTerms.titleOfSelectedItem!
-        terms = Int(n)!
-        document.wallpaperModel.numOfTerms = terms
+        let t = Int(n)!
+        wp.numOfTerms = t
         termStepper.maxValue = Double(n)!
-        if term.intValue > terms {
-            term.intValue = Int32(terms)
-            showCoef(terms)
+        if term.intValue > t {
+            term.intValue = Int32(t)
+            showCoef(t)
         }
     }
     
@@ -169,7 +160,6 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func pressLoad(_ sender: Any) {
         guard let url = NSOpenPanel().selectUrl else { return }
-        document.wallpaperModel.wheel = url
         guard let nsImage = NSImage(contentsOf: url) else { return }
         wheel.image = nsImage
         let image = imageToBitmap(nsImage)
@@ -182,14 +172,14 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         self.view.window?.makeFirstResponder(self.view.window?.contentView)
         guard let grp = group.titleOfSelectedItem else {return}
         guard let img = wheel.image else {return}
-        let a1 = param1 > 0 ? param1 : 1
-        let a2 = param2 > 0 ? param2 : 1
-        let rl = repeatLength > 0 ? repeatLength : 100
-        let s = scale != 0 ? scale : 0.5
+        let a1 = wp.param1 > 0 ? wp.param1 : 1
+        let a2 = wp.param2 > 0 ? wp.param2 : 1
+        let rl = wp.options.repLength > 0 ? wp.options.repLength : 100
+        let s = wp.options.scale != 0 ? wp.options.scale : 0.5
         var result: NSBitmapImageRep?
         // End editing session by making window the first responder.
         DispatchQueue.global(qos: .userInteractive).async {
-            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: 600, height: 480, repLength: Int(rl), scale: s, rotation: self.rotation)
+            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: 600, height: 480, repLength: Int(rl), scale: s, rotation: self.wp.options.rotation)
             DispatchQueue.main.async {
                 self.wallpaperImage.image = bitmapToImage(result!)
             }
@@ -211,10 +201,10 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         var topLevelObjects : NSArray?
         guard let grp = group.titleOfSelectedItem else {return}
         guard let img = wheel.image else {return}
-        let a1 = param1 > 0 ? param1 : 1
-        let a2 = param2 > 0 ? param2 : 1
-        let rl = repeatLength > 0 ? repeatLength : 100
-        let s = scale != 0 ? scale : 0.5
+        let a1 = wp.param1 > 0 ? wp.param1 : 1
+        let a2 = wp.param2 > 0 ? wp.param2 : 1
+        let rl = wp.options.repLength > 0 ? wp.options.repLength : 100
+        let s = wp.options.scale != 0 ? wp.options.scale : 0.5
         savePanel.title = "Save As:"
         savePanel.prompt = "Save"
         savePanel.allowedFileTypes = ["png"]
@@ -230,7 +220,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
             exportHeight = heightField.intValue == 0 ? 480 : Int(heightField.intValue)
             let filetype = imageTypePopup.titleOfSelectedItem
             DispatchQueue.global(qos: .background).async {
-                result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), scale: s, rotation: self.rotation)
+                result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), scale: s, rotation: self.wp.options.rotation)
                 switch filetype {
                 case "PNG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .png)
                 case "JPEG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .jpeg)
@@ -248,7 +238,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     
     func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, width: Int, height: Int, repLength: Int, scale: Double, rotation: Double) -> NSBitmapImageRep {
         let opts = Options(width: width, height: height, repLength: repLength, scale: scale, rotation: Double.pi * rotation / 180)
-        return wallpaper(options: opts, recipeFn: recipeFn, coefs: Array(formula[0..<terms]), nsImage: image)
+        return wallpaper(options: opts, recipeFn: recipeFn, coefs: Array(wp.terms[0..<wp.numOfTerms]), nsImage: image)
     }
     
     func preProcessImage() {
@@ -258,10 +248,10 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     }
 
     func showCoef(_ i: Int) {
-        n.intValue = Int32(formula[i-1].nCoord)
-        m.intValue = Int32(formula[i-1].mCoord)
-        magnitude.doubleValue = formula[i-1].anm.magnitude
-        direction.doubleValue = formula[i-1].anm.direction
+        n.intValue = Int32(wp.terms[i-1].nCoord)
+        m.intValue = Int32(wp.terms[i-1].mCoord)
+        magnitude.doubleValue = wp.terms[i-1].anm.magnitude
+        direction.doubleValue = wp.terms[i-1].anm.direction
     }
     
     override func viewDidLoad() {
@@ -270,8 +260,10 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     }
     
     override func viewWillAppear() {
+        wp = document.wallpaperModel
         updateUI()
     }
+    
 }
 
 func stringToRecipeFn(_ str: String, _ a1: Double, _ a2: Double) -> ([Coef]) -> Recipe {

@@ -1006,7 +1006,6 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <action selector="nChanged:" target="ajg-Yh-L8P" id="oeY-Y5-oCj"/>
                                     <outlet property="delegate" destination="ajg-Yh-L8P" id="e2F-tq-zaj"/>
                                 </connections>
                             </textField>
@@ -1020,7 +1019,6 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <action selector="mChanged:" target="ajg-Yh-L8P" id="jpC-ng-TIX"/>
                                     <outlet property="delegate" destination="ajg-Yh-L8P" id="MxM-k1-qzN"/>
                                 </connections>
                             </textField>
@@ -1034,7 +1032,6 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <action selector="magnitudeChanged:" target="ajg-Yh-L8P" id="8QG-1X-RlG"/>
                                     <outlet property="delegate" destination="ajg-Yh-L8P" id="6yX-nW-Hww"/>
                                 </connections>
                             </textField>
@@ -1048,7 +1045,6 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <action selector="directionChaged:" target="ajg-Yh-L8P" id="8WH-jN-grg"/>
                                     <outlet property="delegate" destination="ajg-Yh-L8P" id="y5P-Cq-Usf"/>
                                 </connections>
                             </textField>
@@ -1099,14 +1095,14 @@
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUw-P4-KqS">
                                 <rect key="frame" x="140" y="451" width="76" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="3" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ddi-Ym-Q2a" id="kKm-2W-Q29">
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1mb-qi-s97" id="kKm-2W-Q29">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="XTe-6s-dPo">
                                         <items>
-                                            <menuItem title="1" id="1mb-qi-s97"/>
+                                            <menuItem title="1" state="on" id="1mb-qi-s97"/>
                                             <menuItem title="2" id="gfP-dV-qQ8"/>
-                                            <menuItem title="3" state="on" id="ddi-Ym-Q2a"/>
+                                            <menuItem title="3" id="ddi-Ym-Q2a"/>
                                             <menuItem title="4" id="VmC-Ll-dhQ"/>
                                             <menuItem title="5" id="UWS-o5-dMk"/>
                                             <menuItem title="6" id="yWN-ra-3SS"/>
@@ -1159,8 +1155,6 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="Rotation" destination="jLz-to-QvH" id="dsi-oF-mVc"/>
-                        <outlet property="Scale" destination="Waq-G7-w7r" id="mu4-oK-Zmx"/>
                         <outlet property="direction" destination="M9P-jm-DBq" id="FTr-t9-uLZ"/>
                         <outlet property="exportLabel" destination="6Cn-x9-CFS" id="4MZ-9Z-v1c"/>
                         <outlet property="exportProgress" destination="6eD-g3-neb" id="29I-86-oJL"/>
