@@ -171,7 +171,6 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func pressLoad(_ sender: Any) {
         guard let url = NSOpenPanel().selectUrl else { return }
         guard let nsImage = NSImage(contentsOf: url) else { return }
-        wheel.image = nsImage
         let image = imageToBitmap(nsImage)
         let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
         originalImage = Image(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)

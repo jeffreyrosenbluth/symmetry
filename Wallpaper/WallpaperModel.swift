@@ -20,6 +20,3 @@ struct WallpaperModel: Codable {
                  Coef(), Coef(), Coef(), Coef(), Coef()
     ]
 }
-
-//                 Coef(nCoord: -2, mCoord: 2, anm: Complex(r: 0.3, degrees: 315)),
-//                 Coef(nCoord: 1, mCoord: -1, anm: Complex(r: 0.6, degrees: 90)),
