@@ -56,9 +56,8 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         scaleField.doubleValue = document.wallpaperModel.options.scale
         rotationField.doubleValue = document.wallpaperModel.options.rotation
         preprocessMenu.selectItem(withTitle: document.wallpaperModel.preprocess)
+        handleNumOfTerms(document.wallpaperModel.numOfTerms)
         numberOfTerms.selectItem(at: document.wallpaperModel.numOfTerms - 1)
-        numberOfTerms.intValue = Int32(document.wallpaperModel.numOfTerms)
-        termsChanged(numberOfTerms)
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
@@ -107,14 +106,25 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func termsChanged(_ sender: NSPopUpButton) {
-        let n = numberOfTerms.titleOfSelectedItem!
-        let t = Int(n)!
-        wp.numOfTerms = t
-        termStepper.maxValue = Double(n)!
-        if term.intValue > t {
-            term.intValue = Int32(t)
-            showCoef(t)
+        let n = Int(numberOfTerms.titleOfSelectedItem!)
+        handleNumOfTerms(n!)
+    }
+    
+    func handleNumOfTerms(_ n: Int) {
+        wp.numOfTerms = n
+        document.wallpaperModel.numOfTerms = n
+        termStepper.maxValue = Double(n)
+        if term.intValue > n {
+            term.intValue = Int32(n)
+            showCoef(n)
         }
+    }
+    
+    func showCoef(_ i: Int) {
+        n.intValue = Int32(wp.terms[i-1].nCoord)
+        m.intValue = Int32(wp.terms[i-1].mCoord)
+        magnitude.doubleValue = wp.terms[i-1].anm.magnitude
+        direction.doubleValue = wp.terms[i-1].anm.direction
     }
     
     @IBAction func preprocessChanged(_ sender: NSPopUpButton) {
@@ -247,12 +257,6 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         wheel.image = bitmapToImage(toNSBitmapImageRep(preprocess(originalImage)))
     }
 
-    func showCoef(_ i: Int) {
-        n.intValue = Int32(wp.terms[i-1].nCoord)
-        m.intValue = Int32(wp.terms[i-1].mCoord)
-        magnitude.doubleValue = wp.terms[i-1].anm.magnitude
-        direction.doubleValue = wp.terms[i-1].anm.direction
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
