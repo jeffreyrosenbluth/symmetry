@@ -58,6 +58,11 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         preprocessMenu.selectItem(withTitle: document.wallpaperModel.preprocess)
         handleNumOfTerms(document.wallpaperModel.numOfTerms)
         numberOfTerms.selectItem(at: document.wallpaperModel.numOfTerms - 1)
+        term.intValue = 1
+        n.intValue = Int32(document.wallpaperModel.terms[0].nCoord)
+        m.intValue = Int32(document.wallpaperModel.terms[0].mCoord)
+        magnitude.doubleValue = document.wallpaperModel.terms[0].anm.magnitude
+        direction.doubleValue = document.wallpaperModel.terms[0].anm.direction
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
