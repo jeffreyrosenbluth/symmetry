@@ -191,11 +191,19 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         let rl = wp.options.repLength > 0 ? wp.options.repLength : 100
         let s = wp.options.scale != 0 ? wp.options.scale : 0.5
         var result: NSBitmapImageRep?
-        // End editing session by making window the first responder.
+        exportProgress.isHidden = false
+        exportProgress.startAnimation(self)
+        exportLabel.isHidden = false
+        exportLabel.stringValue = "creating preview"
         DispatchQueue.global(qos: .userInteractive).async {
             result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: 600, height: 480, repLength: Int(rl), scale: s, rotation: self.wp.options.rotation)
             DispatchQueue.main.async {
                 self.wallpaperImage.image = bitmapToImage(result!)
+                DispatchQueue.main.async {
+                    self.exportProgress.stopAnimation(self)
+                    self.exportProgress.isHidden = true
+                    self.exportLabel.isHidden = true
+                }
             }
         }
     }
