@@ -266,7 +266,22 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     func preProcessImage() {
         guard let pString = preprocessMenu.titleOfSelectedItem else {return}
         let preprocess = stringToPreprocess(pString)
-        wheel.image = bitmapToImage(toNSBitmapImageRep(preprocess(originalImage)))
+        var result = NSImage()
+        exportProgress.isHidden = false
+        exportProgress.startAnimation(self)
+        exportLabel.isHidden = false
+        exportLabel.stringValue = "preprocessing color wheel"
+        DispatchQueue.global(qos: .userInteractive).async {
+            result = bitmapToImage(toNSBitmapImageRep(preprocess(self.originalImage)))
+            DispatchQueue.main.async {
+                self.wheel.image = result
+                DispatchQueue.main.async {
+                    self.exportProgress.stopAnimation(self)
+                    self.exportProgress.isHidden = true
+                    self.exportLabel.isHidden = true
+                }
+            }
+        }
     }
 
     
