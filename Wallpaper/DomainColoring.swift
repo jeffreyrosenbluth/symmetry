@@ -100,13 +100,15 @@ func color(options: Options, recipe: @escaping Recipe, image: Image, i: Int, j: 
            .scale(options.scale * Double(s) / 2)
            .rotate(options.rotation)
     func clamp(_ m: Int, _ n: Int) -> Pixel {
-        if (m < 0) || (n < 0) || m >= w1 || n >= h1 {
-            return blackPixel
-        } else {
-            return getPixel(image: image, x: m, y: n)
-        }
+        var x = m
+        var y = n
+        if m < 0 {x = 0}
+        if n < 0 {y = 0}
+        if m >= s {x = s - 1}
+        if n >= s {y = s - 1}
+        return getPixel(image: image, x: x, y: y)
     }
-    return clamp(Int(round(z.re)) + s / 2, Int(round(z.im)) + s / 2)
+    return clamp(Int(floor(z.re)) + s / 2, Int(floor(z.im)) + s / 2)
 }
 
 func domainColoring(_ options: Options, _ recipe: @escaping Recipe, _ wheel: Image) -> Image {
