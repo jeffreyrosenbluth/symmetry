@@ -78,8 +78,9 @@ func wnm(n: Int, m: Int, x: Double, y: Double) -> Complex {
 }
 
 func makeRecipe(recipeFunc: @escaping (Int, Int) -> Recipe, coeffs: [Coef]) -> Recipe {
+    let m = coeffs.reduce(0, {(r, c) in r + c.anm.magnitude})
     return {z in coeffs.reduce(Complex(0, 0), {(r, c) in
-        r + recipeFunc(c.nCoord, c.mCoord)(z) * c.anm
+        (r + recipeFunc(c.nCoord, c.mCoord)(z) * c.anm).scale(1 / m)
     })}
 }
 
@@ -94,8 +95,9 @@ func color(options: Options, recipe: @escaping Recipe, image: Image, i: Int, j: 
     let w1 = image.width
     let h1 = image.height
     let f = focus(w: options.width, h: options.height, l: options.repLength, recipe: recipe)
+    let s = min(w1, h1)
     let z = f(Complex(Double(i), Double(j)))
-           .scale(options.scale * Double(min(w1, h1)))
+           .scale(options.scale * Double(s) / 2)
            .rotate(options.rotation)
     func clamp(_ m: Int, _ n: Int) -> Pixel {
         if (m < 0) || (n < 0) || m >= w1 || n >= h1 {
@@ -104,7 +106,7 @@ func color(options: Options, recipe: @escaping Recipe, image: Image, i: Int, j: 
             return getPixel(image: image, x: m, y: n)
         }
     }
-    return clamp(Int(round(z.re)) + w1 / 2, Int(round(z.im)) + h1 / 2)
+    return clamp(Int(round(z.re)) + s / 2, Int(round(z.im)) + s / 2)
 }
 
 func domainColoring(_ options: Options, _ recipe: @escaping Recipe, _ wheel: Image) -> Image {
@@ -120,7 +122,6 @@ func blend(_ options: Options, _ recipe1: @escaping Recipe, _ recipe2: @escaping
         let a = (z.re + m) / (2 * m)
         return recipe2(z).scale(a) + recipe1(z).scale(1 - a)
     }
-    
     return domainColoring(options, rcp, wheel)
 }
 

@@ -9,7 +9,7 @@
 import Cocoa
 
 struct WallpaperModel: Codable {
-    var options = Options(width: 600, height: 480, repLength: 100, scale: 0.25, rotation: 0)
+    var options = Options(width: 600, height: 480, repLength: 100, scale: 1, rotation: 0)
     var numOfTerms = 1
     var preprocess = "none"
     var group = "p4m"
