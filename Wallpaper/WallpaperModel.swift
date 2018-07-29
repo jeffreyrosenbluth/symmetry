@@ -9,13 +9,13 @@
 import Cocoa
 
 struct WallpaperModel: Codable {
-    var options = Options(width: 600, height: 480, repLength: 100, scale: 1, rotation: 0)
+    var options = Options(width: 600, height: 480, repLength: 240, scale: 1, rotation: 0)
     var numOfTerms = 1
     var preprocess = "none"
-    var group = "p4m"
+    var group = "p3"
     var param1 = 1.0
     var param2 = 1.0
-    var terms = [Coef(nCoord: 1, mCoord: 0, anm: Complex(r: 0.8, degrees: 20)),
+    var terms = [Coef(nCoord: 1, mCoord: 0, anm: Complex(r: 1, degrees: 0)),
                  Coef(), Coef(), Coef(), Coef(),
                  Coef(), Coef(), Coef(), Coef(), Coef()
     ]
