@@ -189,7 +189,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         let a1 = wp.param1 > 0 ? wp.param1 : 1
         let a2 = wp.param2 > 0 ? wp.param2 : 1
         let rl = wp.options.repLength > 0 ? wp.options.repLength : 100
-        let s = wp.options.scale != 0 ? wp.options.scale : 0.5
+        let s = wp.options.scale != 0 ? wp.options.scale : 1.0
         var result: NSBitmapImageRep?
         exportProgress.isHidden = false
         exportProgress.startAnimation(self)
@@ -226,7 +226,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         let a1 = wp.param1 > 0 ? wp.param1 : 1
         let a2 = wp.param2 > 0 ? wp.param2 : 1
         let rl = wp.options.repLength > 0 ? wp.options.repLength : 100
-        let s = wp.options.scale != 0 ? wp.options.scale : 0.5
+        let s = wp.options.scale != 0 ? wp.options.scale : 1.0
         savePanel.title = "Save As:"
         savePanel.prompt = "Save"
         savePanel.allowedFileTypes = ["png"]
