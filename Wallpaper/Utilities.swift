@@ -16,7 +16,7 @@ extension NSOpenPanel {
         canChooseDirectories = false
         canChooseFiles = true
         canCreateDirectories = false
-        allowedFileTypes = ["jpg","png","pdf","pct", "bmp", "tiff"]
+        allowedFileTypes = ["jpg", "jpeg", "png", "pdf", "pct", "bmp", "tiff"]
         return runModal() == .OK ? urls.first : nil
     }
     var selectUrls: [URL]? {
@@ -25,7 +25,7 @@ extension NSOpenPanel {
         canChooseDirectories = false
         canChooseFiles = true
         canCreateDirectories = false
-        allowedFileTypes = ["jpg","png","pdf","pct", "bmp", "tiff"]  
+        allowedFileTypes = ["jpg", "jpeg", "png", "pdf", "pct", "bmp", "tiff"]
         return runModal() == .OK ? urls : nil
     }
 }

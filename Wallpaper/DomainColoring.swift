@@ -4,7 +4,7 @@
 //
 //  Created by Jeffrey Rosenbluth on 6/17/18.
 //  Copyright © 2018 Applause Code. All rights reserved.
-//
+// 
 
 import Foundation
 import Cocoa
@@ -84,7 +84,9 @@ func makeRecipe(recipeFunc: @escaping (Int, Int) -> Recipe, coeffs: [Coef]) -> R
     let m = (0...360).reduce(0.0, {(r, c) in
         max(r, f(Complex(r: 1, degrees: Double(c))).magnitude)
     })
-    return {z in f(z).scale(1 / m)}
+    // Handle case where the max of the recipe function is 0.
+    let s = m > 0 ? m : 1
+    return {z in f(z).scale(1 / s)}
 }
 
 func focus(w: Int, h: Int, l: Int, recipe: @escaping Recipe) -> Recipe {
@@ -94,7 +96,7 @@ func focus(w: Int, h: Int, l: Int, recipe: @escaping Recipe) -> Recipe {
     }
 }
 
-func color(options: Options, recipe: @escaping Recipe, image: Image, i: Int, j: Int) -> Pixel {
+func color(options: Options, recipe: @escaping Recipe, image: RGBAimage, i: Int, j: Int) -> Pixel {
     let w1 = image.width
     let h1 = image.height
     let f = focus(w: options.width, h: options.height, l: options.repLength, recipe: recipe)
@@ -114,14 +116,14 @@ func color(options: Options, recipe: @escaping Recipe, image: Image, i: Int, j: 
     return clamp(Int(z.re) + w1 / 2, Int(z.im) + h1 / 2)
 }
 
-func domainColoring(_ options: Options, _ recipe: @escaping Recipe, _ wheel: Image) -> Image {
+func domainColoring(_ options: Options, _ recipe: @escaping Recipe, _ wheel: RGBAimage) -> RGBAimage {
     func clr(_ i: Int, _ j: Int) -> Pixel {
         return color(options: options, recipe: recipe, image: wheel, i: i, j: j)
     }
     return generateImage(options.width, options.height, pixelFn: clr)
 }
 
-func blend(_ options: Options, _ recipe1: @escaping Recipe, _ recipe2: @escaping Recipe,_ wheel: Image) -> Image {
+func blend(_ options: Options, _ recipe1: @escaping Recipe, _ recipe2: @escaping Recipe,_ wheel: RGBAimage) -> RGBAimage {
     func rcp(_ z: Complex) -> Complex {
         let m = max(1, Double(options.width) / Double(options.height))
         let a = (z.re + m) / (2 * m)
@@ -130,7 +132,7 @@ func blend(_ options: Options, _ recipe1: @escaping Recipe, _ recipe2: @escaping
     return domainColoring(options, rcp, wheel)
 }
 
-func morph(_ options: Options, _ recipe: @escaping Recipe, _ cut: Double, _ wheel: Image) -> Image {
+func morph(_ options: Options, _ recipe: @escaping Recipe, _ cut: Double, _ wheel: RGBAimage) -> RGBAimage {
     func phi(_ c: Double, _ u: Double) -> Double {
         if u < cut {
             return 1
@@ -152,7 +154,7 @@ func morph(_ options: Options, _ recipe: @escaping Recipe, _ cut: Double, _ whee
 func wallpaper(options: Options, recipeFn: (([Coef]) -> Recipe), coefs: [Coef], nsImage: NSImage) -> NSBitmapImageRep {
     let image = imageToBitmap(nsImage)
     let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
-    let pixels = Image(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
+    let pixels = RGBAimage(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
     let outImage = domainColoring(options, recipeFn(coefs), pixels)
     return toNSBitmapImageRep(outImage)
 }

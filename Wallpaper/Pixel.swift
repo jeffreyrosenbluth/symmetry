@@ -21,7 +21,7 @@ let whitePixel = Pixel(red: 255, green: 255, blue: 255, alpha: 255)
 
 typealias RGBA = [UInt8]
 
-struct Image {
+struct RGBAimage {
     var pixels: RGBA
     let width: Int
     let height: Int
@@ -62,7 +62,7 @@ func nsColorToPixel(_ nsColor: NSColor) -> Pixel {
                  alpha: to255(rgba[3]))
 }
 
-func generateImage(_ width: Int, _ height: Int, pixelFn: (Int, Int) -> Pixel) -> Image {
+func generateImage(_ width: Int, _ height: Int, pixelFn: (Int, Int) -> Pixel) -> RGBAimage {
     var data: [UInt8] = []
     for i in 0..<height {
         for j in 0..<width {
@@ -73,7 +73,7 @@ func generateImage(_ width: Int, _ height: Int, pixelFn: (Int, Int) -> Pixel) ->
             data.append(pixel.alpha)
         }
     }
-    return Image(pixels: data, width: width, height: height)
+    return RGBAimage(pixels: data, width: width, height: height)
 }
 
 func invertPixel(_ color: Pixel) -> Pixel {
@@ -83,41 +83,35 @@ func invertPixel(_ color: Pixel) -> Pixel {
     return Pixel(red: r, green: g, blue: b, alpha: color.alpha)
 }
 
-func half(_ image: Image) -> Image {
-    return generateImage(image.width / 2, image.height) {
-        (x,y) in getPixel(image: image, x: x, y: y)
-    }
-}
-
-func plain(_ image: Image) -> Image {
+func plain(_ image: RGBAimage) -> RGBAimage {
     return image
 }
 
-func invertImage(_ image: Image) -> Image {
+func invertImage(_ image: RGBAimage) -> RGBAimage {
     return generateImage(image.width, image.height) {
         (x,y) in invertPixel(getPixel(image: image, x: x, y: y))
     }
 }
 
-func flipHorizontal(_ image: Image) -> Image {
+func flipHorizontal(_ image: RGBAimage) -> RGBAimage {
     return generateImage(image.width, image.height) {
         (x,y) in getPixel(image: image, x: image.width - 1 - x, y: y)
     }
 }
 
-func flipVertical(_ image: Image) -> Image {
+func flipVertical(_ image: RGBAimage) -> RGBAimage {
     return generateImage(image.width, image.height) {
         (x,y) in getPixel(image: image, x: x, y: image.height - 1 - y)
     }
 }
 
-func flipBoth(_ image: Image) -> Image {
+func flipBoth(_ image: RGBAimage) -> RGBAimage {
     return generateImage(image.width, image.height) {
         (x,y) in getPixel(image: image, x: image.width - 1 - x, y: image.height - 1 - y)
     }
 }
 
-func beside(_ image1: Image, _ image2: Image) -> Image {
+func beside(_ image1: RGBAimage, _ image2: RGBAimage) -> RGBAimage {
     return generateImage(image1.width + image2.width, image1.height) {x,y in
         if x < image1.width {
             return getPixel(image: image1, x: x, y: y)
@@ -127,7 +121,7 @@ func beside(_ image1: Image, _ image2: Image) -> Image {
     }
 }
 
-func below(_ image1: Image, _ image2: Image) -> Image {
+func below(_ image1: RGBAimage, _ image2: RGBAimage) -> RGBAimage {
     return generateImage(image1.width, image1.height + image2.height) {x,y in
         if y < image1.height {
             return getPixel(image: image1, x: x, y: y)
@@ -137,15 +131,15 @@ func below(_ image1: Image, _ image2: Image) -> Image {
     }
 }
 
-func antiSymmHorizontal(_ image: Image) -> Image {
-    return beside(image, flipHorizontal(invertImage(image)))
+func antiSymmHorizontal(_ image: RGBAimage) -> RGBAimage {
+    return beside(image, flipBoth(invertImage(image)))
 }
 
-func antiSymmVertical(_ image: Image) -> Image {
-    return below(image, flipVertical(invertImage(image)))
+func antiSymmVertical(_ image: RGBAimage) -> RGBAimage {
+    return below(image, flipBoth(invertImage(image)))
 }
 
-func getPixel(image: Image, x: Int, y: Int) -> Pixel {
+func getPixel(image: RGBAimage, x: Int, y: Int) -> Pixel {
     let idx = (x + y * image.width) * 4
     return Pixel(red: image.pixels[idx],
                  green: image.pixels[idx+1],
@@ -153,7 +147,7 @@ func getPixel(image: Image, x: Int, y: Int) -> Pixel {
                  alpha: image.pixels[idx+3])
 }
 
-func toNSBitmapImageRep(_ image: Image) -> NSBitmapImageRep {
+func toNSBitmapImageRep(_ image: RGBAimage) -> NSBitmapImageRep {
     let size = 4 * image.width * image.height
     let data: UnsafeMutablePointer<UInt8>? = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
     data?.initialize(from: image.pixels, count: size)

@@ -423,7 +423,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="127" height="25"/>
                                     <size key="maxSize" width="143" height="47"/>
-                                    <button key="view" verticalHuggingPriority="750" id="E5T-0q-03a">
+                                    <button key="view" toolTip="Choose the image to use as a color wheel." verticalHuggingPriority="750" id="E5T-0q-03a">
                                         <rect key="frame" x="0.0" y="14" width="143" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" title="Color wheel..." bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="o4a-3q-v7u">
@@ -439,7 +439,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="127" height="25"/>
                                     <size key="maxSize" width="127" height="25"/>
-                                    <button key="view" verticalHuggingPriority="750" id="nSu-nj-xCD">
+                                    <button key="view" toolTip="Display a 600 x 480 preview of the wallpaper." verticalHuggingPriority="750" id="nSu-nj-xCD">
                                         <rect key="frame" x="0.0" y="14" width="127" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" title="Preview" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wmf-KE-Xfa">
@@ -478,7 +478,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="960" height="728"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pNk-MH-OSD">
+                            <popUpButton toolTip="Symmetry group of wallpaper pattern - crystallographic (IUC) short name." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pNk-MH-OSD">
                                 <rect key="frame" x="61" y="683" width="76" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="p4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="VOR-yO-HDd" id="xAo-Ge-kA0">
@@ -605,10 +605,10 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" tag="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ez6-2y-qtC">
+                            <textField toolTip="Number of times the pattern repeats." verticalHuggingPriority="750" fixedFrame="YES" tag="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ez6-2y-qtC">
                                 <rect key="frame" x="142" y="629" width="70" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="100" drawsBackground="YES" id="CSk-AL-kRe">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="240" drawsBackground="YES" id="CSk-AL-kRe">
                                     <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="4E1-vL-ouw"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -618,10 +618,10 @@
                                     <outlet property="delegate" destination="ajg-Yh-L8P" id="ypC-Rp-Hfz"/>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="Waq-G7-w7r">
+                            <textField toolTip="I" verticalHuggingPriority="750" fixedFrame="YES" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="Waq-G7-w7r">
                                 <rect key="frame" x="142" y="602" width="70" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0.25" drawsBackground="YES" id="Upb-F2-Jb3">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="1" drawsBackground="YES" id="Upb-F2-Jb3">
                                     <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="hyx-A3-0xK"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -631,7 +631,7 @@
                                     <outlet property="delegate" destination="ajg-Yh-L8P" id="tLg-ye-Fv0"/>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="jLz-to-QvH">
+                            <textField toolTip="Counter clockwise rotation applied to the color wheel." verticalHuggingPriority="750" fixedFrame="YES" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="jLz-to-QvH">
                                 <rect key="frame" x="142" y="574" width="70" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0" drawsBackground="YES" id="oE9-n0-BEO">
@@ -644,7 +644,7 @@
                                     <outlet property="delegate" destination="ajg-Yh-L8P" id="w31-nP-kWr"/>
                                 </connections>
                             </textField>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Gk-l3-uFG">
+                            <popUpButton toolTip="Image processing applied to color wheel." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Gk-l3-uFG">
                                 <rect key="frame" x="9" y="515" width="206" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="none" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="JuU-Kg-T2x" id="XNo-wP-DCQ">
@@ -817,7 +817,7 @@
                                     <action selector="incrementTerm:" target="ajg-Yh-L8P" id="Na8-VN-IQI"/>
                                 </connections>
                             </stepper>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUw-P4-KqS">
+                            <popUpButton toolTip="Number of terms input to the wallpaer recipe function." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUw-P4-KqS">
                                 <rect key="frame" x="140" y="479" width="76" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1mb-qi-s97" id="kKm-2W-Q29">

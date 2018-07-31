@@ -17,7 +17,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     }
     
     var wp = WallpaperModel()
-    var originalImage: Image = Image(pixels: [], width: 0, height: 0)
+    var originalImage: RGBAimage = RGBAimage(pixels: [], width: 0, height: 0)
     let savePanel: NSSavePanel = NSSavePanel()
     var exportWidth: Int?
     var exportHeight: Int?
@@ -178,7 +178,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         guard let nsImage = NSImage(contentsOf: url) else { return }
         let image = imageToBitmap(nsImage)
         let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
-        originalImage = Image(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
+        originalImage = RGBAimage(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
         preProcessImage()
     }
     
@@ -322,7 +322,7 @@ func stringToRecipeFn(_ str: String, _ a1: Double, _ a2: Double) -> ([Coef]) -> 
     }
 }
 
-func stringToPreprocess(_ str: String) -> (Image) -> Image {
+func stringToPreprocess(_ str: String) -> (RGBAimage) -> RGBAimage {
     switch str {
     case "none": return plain
     case "flip vertical": return flipVertical

@@ -1,5 +1,7 @@
 //
 //  Complex.swift
+//  The bare minimum set of functions needed by the wallpaper application
+//  to handle complex numbers and operations.
 //  Wallpaper
 //
 //  Created by Jeffrey Rosenbluth on 6/17/18.
