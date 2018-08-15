@@ -55,6 +55,7 @@ struct Options: Codable {
     let width: Int
     let height: Int
     var repLength: Int
+    var origin: Complex
     var scale: Double
     var rotation: Double
 }
@@ -97,12 +98,14 @@ func focus(w: Int, h: Int, l: Int, recipe: @escaping Recipe) -> Recipe {
 }
 
 func color(options: Options, recipe: @escaping Recipe, image: RGBAimage, i: Int, j: Int) -> Pixel {
-    let w1 = image.width
-    let h1 = image.height
+    let (x0, y0) = (options.origin.re, options.origin.im)
+    let (w1, h1) = (image.width, image.height)
+    let (w0, h0) = (Double(w1), Double(h1))
+    let (x, y) = (x0 * w0 / 2, -y0 * h0 / 2)
+    let r = min(w0 / 2 - abs(x), h0 / 2 - abs(y))
     let f = focus(w: options.width, h: options.height, l: options.repLength, recipe: recipe)
-    let s = min(w1, h1)
     let z = f(Complex(Double(i), Double(j)))
-           .scale(options.scale * Double(s) / 2)
+           .scale(options.scale * r)
            .rotate(options.rotation)
     func clamp(_ m: Int, _ n: Int) -> Pixel {
         var x = m
@@ -113,7 +116,7 @@ func color(options: Options, recipe: @escaping Recipe, image: RGBAimage, i: Int,
         if n >= h1 {y = h1 - 1}
         return getPixel(image: image, x: x, y: y)
     }
-    return clamp(Int(z.re) + w1 / 2, Int(z.im) + h1 / 2)
+    return clamp(Int(z.re) + w1 / 2 + Int(x), Int(z.im) + h1 / 2 + Int(y))
 }
 
 func domainColoring(_ options: Options, _ recipe: @escaping Recipe, _ wheel: RGBAimage) -> RGBAimage {

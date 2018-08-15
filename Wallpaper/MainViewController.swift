@@ -47,12 +47,16 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var heightField: NSTextField!
     @IBOutlet weak var exportProgress: NSProgressIndicator!
     @IBOutlet weak var exportLabel: NSTextField!
+    @IBOutlet weak var xTextField: NSTextField!
+    @IBOutlet weak var yTextField: NSTextField!
     
     func updateUI() {
         group.selectItem(withTitle: document.wallpaperModel.group)
         param1Field.doubleValue = document.wallpaperModel.param1
         param2Field.doubleValue = document.wallpaperModel.param2
         repeatLengthField.intValue = Int32(document.wallpaperModel.options.repLength)
+        xTextField.doubleValue = document.wallpaperModel.options.origin.re
+        yTextField.doubleValue = document.wallpaperModel.options.origin.im
         scaleField.doubleValue = document.wallpaperModel.options.scale
         rotationField.doubleValue = document.wallpaperModel.options.rotation
         preprocessMenu.selectItem(withTitle: document.wallpaperModel.preprocess)
@@ -71,6 +75,14 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         let x = Double(tf.doubleValue)
         let v = Int(x)
         switch tf.tag {
+        case 6:
+            let y = wp.options.origin.im
+            wp.options.origin = Complex(x, y)
+            document.wallpaperModel.options.origin = Complex(x, y)
+        case 7:
+            let y = wp.options.origin.re
+            wp.options.origin = Complex(y, x)
+            document.wallpaperModel.options.origin = Complex(y, x)
         case 8:
             wp.param1 = x
             document.wallpaperModel.param1 = x
@@ -196,7 +208,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         exportLabel.isHidden = false
         exportLabel.stringValue = "creating preview"
         DispatchQueue.global(qos: .userInteractive).async {
-            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: 600, height: 480, repLength: Int(rl), scale: s, rotation: self.wp.options.rotation)
+            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: 600, height: 480, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation)
             DispatchQueue.main.async {
                 self.wallpaperImage.image = bitmapToImage(result!)
                 DispatchQueue.main.async {
@@ -242,7 +254,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
             exportHeight = heightField.intValue == 0 ? 480 : Int(heightField.intValue)
             let filetype = imageTypePopup.titleOfSelectedItem
             DispatchQueue.global(qos: .background).async {
-                result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), scale: s, rotation: self.wp.options.rotation)
+                result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation)
                 switch filetype {
                 case "PNG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .png)
                 case "JPEG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .jpeg)
@@ -258,8 +270,8 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, width: Int, height: Int, repLength: Int, scale: Double, rotation: Double) -> NSBitmapImageRep {
-        let opts = Options(width: width, height: height, repLength: repLength, scale: scale, rotation: Double.pi * rotation / 180)
+    func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, width: Int, height: Int, repLength: Int, origin: Complex, scale: Double, rotation: Double) -> NSBitmapImageRep {
+        let opts = Options(width: width, height: height, repLength: repLength, origin: origin, scale: scale, rotation: Double.pi * rotation / 180)
         return wallpaper(options: opts, recipeFn: recipeFn, coefs: Array(wp.terms[0..<wp.numOfTerms]), nsImage: image)
     }
     
