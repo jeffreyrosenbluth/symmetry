@@ -341,6 +341,7 @@ func stringToPreprocess(_ str: String) -> (RGBAimage) -> RGBAimage {
     case "flip horizontal": return flipHorizontal
     case "flip both": return flipBoth
     case "invert colors": return invertImage
+    case "grayscale": return grayscale
     case "antisymmetric vertical": return antiSymmVertical
     case "antisymmetric horizontal": return antiSymmHorizontal
     default:

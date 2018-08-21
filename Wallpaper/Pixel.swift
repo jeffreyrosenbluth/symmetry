@@ -83,6 +83,17 @@ func invertPixel(_ color: Pixel) -> Pixel {
     return Pixel(red: r, green: g, blue: b, alpha: color.alpha)
 }
 
+func luminosity(_ color: Pixel) -> Pixel {
+    let gray = UInt8(0.21 * Double(color.red) + 0.72 * Double(color.green) + 0.07 * Double(color.blue))
+    return Pixel(red: gray, green: gray, blue: gray, alpha: color.alpha)
+}
+
+func grayscale(_ image: RGBAimage) -> RGBAimage {
+    return generateImage(image.width, image.height) {
+        (x,y) in luminosity(getPixel(image: image, x: x, y: y))
+    }
+}
+
 func plain(_ image: RGBAimage) -> RGBAimage {
     return image
 }
