@@ -49,6 +49,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var exportLabel: NSTextField!
     @IBOutlet weak var xTextField: NSTextField!
     @IBOutlet weak var yTextField: NSTextField!
+    @IBOutlet var morphCheckbox: NSButton!
     
     func updateUI() {
         group.selectItem(withTitle: document.wallpaperModel.group)
@@ -67,6 +68,18 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         m.intValue = Int32(document.wallpaperModel.terms[0].mCoord)
         magnitude.doubleValue = document.wallpaperModel.terms[0].anm.magnitude
         direction.doubleValue = document.wallpaperModel.terms[0].anm.direction
+        morphCheckbox.state = document.wallpaperModel.options.morphing ? .on : .off
+    }
+    
+    @IBAction func morphed(_ sender: NSButton) {
+        switch sender.state {
+        case .on:
+            wp.options.morphing = true
+            document.wallpaperModel.options.morphing = true
+        default:
+            wp.options.morphing = false
+            document.wallpaperModel.options.morphing = false
+        }
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
@@ -208,7 +221,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         exportLabel.isHidden = false
         exportLabel.stringValue = "creating preview"
         DispatchQueue.global(qos: .userInteractive).async {
-            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: 600, height: 480, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation)
+            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: 600, height: 480, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation, morphing: self.wp.options.morphing)
             DispatchQueue.main.async {
                 self.wallpaperImage.image = bitmapToImage(result!)
                 DispatchQueue.main.async {
@@ -254,7 +267,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
             exportHeight = heightField.intValue == 0 ? 480 : Int(heightField.intValue)
             let filetype = imageTypePopup.titleOfSelectedItem
             DispatchQueue.global(qos: .background).async {
-                result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation)
+                result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation, morphing: self.wp.options.morphing)
                 switch filetype {
                 case "PNG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .png)
                 case "JPEG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .jpeg)
@@ -270,8 +283,8 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, width: Int, height: Int, repLength: Int, origin: Complex, scale: Double, rotation: Double) -> NSBitmapImageRep {
-        let opts = Options(width: width, height: height, repLength: repLength, origin: origin, scale: scale, rotation: Double.pi * rotation / 180)
+    func makeWallpaper(image: NSImage, recipeFn: ([Coef]) -> Recipe, width: Int, height: Int, repLength: Int, origin: Complex, scale: Double, rotation: Double, morphing: Bool) -> NSBitmapImageRep {
+        let opts = Options(width: width, height: height, repLength: repLength, origin: origin, scale: scale, rotation: Double.pi * rotation / 180, morphing: morphing)
         return wallpaper(options: opts, recipeFn: recipeFn, coefs: Array(wp.terms[0..<wp.numOfTerms]), nsImage: image)
     }
     

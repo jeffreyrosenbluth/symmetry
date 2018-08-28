@@ -929,6 +929,17 @@
                                     <outlet property="delegate" destination="ajg-Yh-L8P" id="6xJ-wp-CIF"/>
                                 </connections>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HHc-AN-pyO">
+                                <rect key="frame" x="11" y="525" width="62" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Morph" bezelStyle="regularSquare" imagePosition="right" inset="2" id="67Z-we-c43">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <connections>
+                                        <action selector="morphed:" target="ajg-Yh-L8P" id="6b0-Mc-j7T"/>
+                                    </connections>
+                                </buttonCell>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -938,6 +949,7 @@
                         <outlet property="group" destination="pNk-MH-OSD" id="RxX-eT-SWZ"/>
                         <outlet property="m" destination="zT9-hK-301" id="iza-Zp-ewE"/>
                         <outlet property="magnitude" destination="ZI2-v8-iMX" id="yov-lX-SFK"/>
+                        <outlet property="morphCheckbox" destination="HHc-AN-pyO" id="Yy5-3L-zkZ"/>
                         <outlet property="n" destination="oLx-4B-DOG" id="TYp-hm-I10"/>
                         <outlet property="numberOfTerms" destination="wUw-P4-KqS" id="SYx-XQ-FgW"/>
                         <outlet property="param1Field" destination="OMe-70-xuh" id="ogg-XQ-wYa"/>

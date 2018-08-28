@@ -58,6 +58,7 @@ struct Options: Codable {
     var origin: Complex
     var scale: Double
     var rotation: Double
+    var morphing: Bool
 }
 
 func enm(n: Int, m: Int, x: Double, y: Double) -> Complex {
@@ -158,7 +159,9 @@ func wallpaper(options: Options, recipeFn: (([Coef]) -> Recipe), coefs: [Coef], 
     let image = imageToBitmap(nsImage)
     let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
     let pixels = RGBAimage(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
-    let outImage = domainColoring(options, recipeFn(coefs), pixels)
+//    let outImage = domainColoring(options, recipeFn(coefs), pixels)
+    let outImage = options.morphing ? morph(options, recipeFn(coefs), 0.2, pixels) : domainColoring(options, recipeFn(coefs), pixels)
+//    let outImage = morph(options, recipeFn(coefs), 0.2, pixels)
     return toNSBitmapImageRep(outImage)
 }
 
