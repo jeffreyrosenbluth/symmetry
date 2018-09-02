@@ -162,9 +162,8 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         preProcessImage()
     }
     
-    @IBAction func changeGroup(_ sender: NSPopUpButton) {
-        document.wallpaperModel.group = sender.titleOfSelectedItem!
-        switch sender.titleOfSelectedItem! {
+    func handleGroupChange(_ s: String) {
+        switch s {
         case "p1", "p2":
             param1Label.stringValue = "xi"
             param2Label.stringValue = "eta"
@@ -181,7 +180,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
             param2Field.isHidden = true
             return
         case "pm", "pg", "pmm", "pmg", "pgg" :
-            param1Label.stringValue = "l"
+            param1Label.stringValue = "L"
             param1Label.isHidden = false
             param2Label.isHidden = true
             param1Field.isHidden = false
@@ -196,6 +195,41 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         default:
             return
         }
+    }
+    
+    @IBAction func changeGroup(_ sender: NSPopUpButton) {
+        document.wallpaperModel.group = sender.titleOfSelectedItem!
+        handleGroupChange(sender.titleOfSelectedItem!)
+    }
+    
+    @IBAction func pressRandom(_ sender: Any) {
+        var cs: [Coef] = []
+        var ts: [Coef] = []
+        let b = (0.25 * drand48() + 0.5).round2()
+        for i in 0...9 {
+            cs.append(Coef.random())
+        }
+        func ord(_ c1: Coef, _ c2: Coef) -> Bool {
+            let a = abs(c1.mCoord) + abs(c1.nCoord)
+            let b = abs(c2.mCoord) + abs(c2.nCoord)
+            return (a < b)
+        }
+        cs.sort(by: ord)
+        for i in 0...9 {
+            let c = cs[i]
+            ts.append(Coef(nCoord: c.nCoord, mCoord: c.mCoord, anm: Complex(r: pow(b, Double(i)), theta: c.anm.theta)))
+        }
+        wp.terms = ts
+        document.wallpaperModel.terms = ts
+        wp.options = Options.random()
+        document.wallpaperModel.options = wp.options
+        wp.numOfTerms = 1 + Int(arc4random_uniform(10))
+        document.wallpaperModel.numOfTerms = wp.numOfTerms
+        let g = randomGroup()
+        handleGroupChange(g)
+        wp.group = g
+        document.wallpaperModel.group = g
+        updateUI()
     }
     
     @IBAction func pressLoad(_ sender: Any) {

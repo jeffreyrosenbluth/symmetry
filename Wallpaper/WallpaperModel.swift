@@ -20,3 +20,9 @@ struct WallpaperModel: Codable {
                  Coef(), Coef(), Coef(), Coef(), Coef()
     ]
 }
+
+func randomGroup() -> String {
+    let g = ["p1", "p2", "cm", "cmm", "pm", "pg", "pmm", "pmg", "pgg", "p4", "p4m", "p4g", "p3", "p31m", "p3m1", "p6", "p6m"]
+    let n = Int(arc4random_uniform(17))
+    return g[n]
+}

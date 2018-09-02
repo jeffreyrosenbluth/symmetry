@@ -40,3 +40,9 @@ extension NSBitmapImageRep {
         }
     }
 }
+
+extension Double {
+    func round2() -> Double {
+        return (100 * self).rounded() / 100
+    }
+}

@@ -51,6 +51,18 @@ extension Coef {
     }
 }
 
+extension Coef {
+    static func random() -> Coef {
+        var n = Int(arc4random_uniform(7))
+        n = Int(arc4random_uniform(2)) == 0 ? n : -n
+        var m = Int(arc4random_uniform(7))
+        m = Int(arc4random_uniform(2)) == 0 ? m : -m
+        let d = (360 * drand48()).rounded()
+        return Coef(nCoord: n, mCoord: m, anm: Complex(r: 1, degrees: d))
+
+    }
+}
+
 struct Options: Codable {
     let width: Int
     let height: Int
@@ -59,6 +71,16 @@ struct Options: Codable {
     var scale: Double
     var rotation: Double
     var morphing: Bool
+}
+
+extension Options {
+    static func random() -> Options {
+//        let x = (2 * drand48() - 1).round2()
+//        let y = (2 * drand48() - 1).round2()
+//        let s = (drand48() + 0.5).round2()
+        let r = (360 * drand48()).rounded()
+        return Options(width: 600, height: 480, repLength: 240, origin: Complex(0, 0), scale: 1, rotation: r, morphing: false)
+    }
 }
 
 func enm(n: Int, m: Int, x: Double, y: Double) -> Complex {
@@ -159,9 +181,8 @@ func wallpaper(options: Options, recipeFn: (([Coef]) -> Recipe), coefs: [Coef], 
     let image = imageToBitmap(nsImage)
     let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
     let pixels = RGBAimage(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
-//    let outImage = domainColoring(options, recipeFn(coefs), pixels)
-    let outImage = options.morphing ? morph(options, recipeFn(coefs), 0.2, pixels) : domainColoring(options, recipeFn(coefs), pixels)
-//    let outImage = morph(options, recipeFn(coefs), 0.2, pixels)
+    // We set the cutoff (i.e amount of unchanging border to 15%) somewhat arbitrarily.
+    let outImage = options.morphing ? morph(options, recipeFn(coefs), 0.15, pixels) : domainColoring(options, recipeFn(coefs), pixels)
     return toNSBitmapImageRep(outImage)
 }
 

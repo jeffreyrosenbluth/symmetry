@@ -451,9 +451,27 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="AF677E65-72FF-4D7D-8BC8-F6D8E9B83A6F" label="" paletteLabel="" id="uwg-DL-0nV">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="127" height="25"/>
+                                    <size key="maxSize" width="127" height="25"/>
+                                    <button key="view" toolTip="Display a 600 x 480 preview of the wallpaper." verticalHuggingPriority="750" id="x26-CN-i2Y">
+                                        <rect key="frame" x="0.0" y="14" width="127" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" title="Random" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uc7-RZ-pOP">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <action selector="pressRandom:" target="Oky-zY-oP4" id="18B-zD-HiA"/>
+                                            </connections>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="hP2-02-n29"/>
+                                <toolbarItem reference="D9T-XH-pWo"/>
+                                <toolbarItem reference="uwg-DL-0nV"/>
                                 <toolbarItem reference="D9T-XH-pWo"/>
                                 <toolbarItem reference="DDP-FR-IUa"/>
                             </defaultToolbarItems>
