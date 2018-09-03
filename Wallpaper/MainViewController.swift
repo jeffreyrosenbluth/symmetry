@@ -269,8 +269,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         
     @IBAction func changeFiletype(_ sender: NSPopUpButton) {
         switch sender.titleOfSelectedItem {
-        case "PNG":
-            savePanel.allowedFileTypes = ["png"]
+        case "PNG": savePanel.allowedFileTypes = ["png"]
         case "JPEG": savePanel.allowedFileTypes = ["jpg"]
         case "TIFF": savePanel.allowedFileTypes = ["tiff"]
         default: savePanel.allowedFileTypes = ["png"]

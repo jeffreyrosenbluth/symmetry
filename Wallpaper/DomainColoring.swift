@@ -159,7 +159,7 @@ func blend(_ options: Options, _ recipe1: @escaping Recipe, _ recipe2: @escaping
 }
 
 func morph(_ options: Options, _ recipe: @escaping Recipe, _ cut: Double, _ wheel: RGBAimage) -> RGBAimage {
-    func phi(_ c: Double, _ u: Double) -> Double {
+    func phi(_ u: Double) -> Double {
         if u < cut {
             return 1
         } else if u > 1 - cut {
@@ -171,7 +171,8 @@ func morph(_ options: Options, _ recipe: @escaping Recipe, _ cut: Double, _ whee
     
     func rcp(_ z: Complex) -> Complex {
         let t = Double(options.width / options.repLength)
-        return Complex(0,1).scale(exp(Double.pi * phi(cut, ((z.re + t / 2) / t)))) * recipe(z)
+        return exp(Complex(0,1).scale(Double.pi * phi(((z.re + t / 2) / t)))) * recipe(z)
+
     }
     
     return domainColoring(options, rcp, wheel)
