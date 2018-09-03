@@ -75,11 +75,11 @@ struct Options: Codable {
 
 extension Options {
     static func random() -> Options {
-//        let x = (2 * drand48() - 1).round2()
-//        let y = (2 * drand48() - 1).round2()
-//        let s = (drand48() + 0.5).round2()
+        let x = (2 * drand48() - 1).round2()
+        let y = (2 * drand48() - 1).round2()
+        let s = (drand48() + 0.5).round2()
         let r = (360 * drand48()).rounded()
-        return Options(width: 600, height: 480, repLength: 240, origin: Complex(0, 0), scale: 1, rotation: r, morphing: false)
+        return Options(width: 600, height: 480, repLength: 240, origin: Complex(x, y), scale: s, rotation: r, morphing: false)
     }
 }
 
@@ -168,13 +168,11 @@ func morph(_ options: Options, _ recipe: @escaping Recipe, _ cut: Double, _ whee
             return (2 / (2 * cut - 1)) * (u - 0.5)
         }
     }
-    
     func rcp(_ z: Complex) -> Complex {
         let t = Double(options.width / options.repLength)
         return exp(Complex(0,1).scale(Double.pi * phi(((z.re + t / 2) / t)))) * recipe(z)
 
     }
-    
     return domainColoring(options, rcp, wheel)
 }
 
@@ -182,8 +180,8 @@ func wallpaper(options: Options, recipeFn: (([Coef]) -> Recipe), coefs: [Coef], 
     let image = imageToBitmap(nsImage)
     let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
     let pixels = RGBAimage(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
-    // We set the cutoff (i.e amount of unchanging border to 15%) somewhat arbitrarily.
-    let outImage = options.morphing ? morph(options, recipeFn(coefs), 0.15, pixels) : domainColoring(options, recipeFn(coefs), pixels)
+    // We set the cutoff (i.e amount of unchanging border to 10%) somewhat arbitrarily.
+    let outImage = options.morphing ? morph(options, recipeFn(coefs), 0.1, pixels) : domainColoring(options, recipeFn(coefs), pixels)
     return toNSBitmapImageRep(outImage)
 }
 
@@ -343,6 +341,28 @@ func p6m(_ c: [Coef]) -> Recipe {
     let c2 = c.map{$0.reverse()}
     let c3 = c2.map{$0.negateBoth()}
     return makeRecipe(recipeFunc: hexagonalLattice(_:_:), coeffs: nub(c + c1 + c2 + c3))
+}
+
+func groupToRecipeFn(_ g: Group, _ a1: Double, _ a2: Double) -> ([Coef]) -> Recipe {
+    switch g {
+    case .p1: return p1(a1, a2)
+    case .p2: return p2(a1, a2)
+    case .cm: return cm(a1)
+    case .cmm: return cmm(a1)
+    case .pm: return pm(a1)
+    case .pg: return pg(a1)
+    case .pmm: return pmm(a1)
+    case .pmg: return pmg(a1)
+    case .pgg: return pgg(a1)
+    case .p4: return p4
+    case .p4m: return p4m
+    case .p4g: return p4g
+    case .p3: return p3
+    case .p31m: return p31m
+    case .p3m1: return p3m1
+    case .p6: return p6
+    case .p6m: return p6m
+    }
 }
 
 // -------------------------------------------------------------------------------------------------

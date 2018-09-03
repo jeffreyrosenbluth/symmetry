@@ -52,7 +52,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet var morphCheckbox: NSButton!
     
     func updateUI() {
-        group.selectItem(withTitle: document.wallpaperModel.group)
+        group.selectItem(withTitle: document.wallpaperModel.group.rawValue)
         param1Field.doubleValue = document.wallpaperModel.param1
         param2Field.doubleValue = document.wallpaperModel.param2
         repeatLengthField.intValue = Int32(document.wallpaperModel.options.repLength)
@@ -60,7 +60,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         yTextField.doubleValue = document.wallpaperModel.options.origin.im
         scaleField.doubleValue = document.wallpaperModel.options.scale
         rotationField.doubleValue = document.wallpaperModel.options.rotation
-        preprocessMenu.selectItem(withTitle: document.wallpaperModel.preprocess)
+        preprocessMenu.selectItem(withTitle: document.wallpaperModel.preprocess.rawValue)
         handleNumOfTerms(document.wallpaperModel.numOfTerms)
         numberOfTerms.selectItem(at: document.wallpaperModel.numOfTerms - 1)
         term.intValue = 1
@@ -158,13 +158,15 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func preprocessChanged(_ sender: NSPopUpButton) {
-        document.wallpaperModel.preprocess = sender.titleOfSelectedItem!
+        guard let process = sender.titleOfSelectedItem else {return}
+        guard let pp = Preprocess(rawValue: process) else {return}
+        document.wallpaperModel.preprocess = pp
         preProcessImage()
     }
     
-    func handleGroupChange(_ s: String) {
-        switch s {
-        case "p1", "p2":
+    func handleGroupChange(_ g: Group) {
+        switch g {
+        case .p1, .p2:
             param1Label.stringValue = "xi"
             param2Label.stringValue = "eta"
             param1Label.isHidden = false
@@ -172,34 +174,34 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
             param1Field.isHidden = false
             param2Field.isHidden = false
             return
-        case "cm", "cmm":
+        case .cm, .cmm:
             param1Label.stringValue = "b"
             param1Label.isHidden = false
             param2Label.isHidden = true
             param1Field.isHidden = false
             param2Field.isHidden = true
             return
-        case "pm", "pg", "pmm", "pmg", "pgg" :
+        case .pm, .pg, .pmm, .pmg, .pgg :
             param1Label.stringValue = "L"
             param1Label.isHidden = false
             param2Label.isHidden = true
             param1Field.isHidden = false
             param2Field.isHidden = true
             return
-        case "p4", "p4m", "p4g", "p3", "p31m", "p3m1", "p6", "p6m":
+        case .p4, .p4m, .p4g, .p3, .p31m, .p3m1, .p6, .p6m:
             param1Label.isHidden = true
             param2Label.isHidden = true
             param1Field.isHidden = true
             param2Field.isHidden = true
             return
-        default:
-            return
         }
     }
     
     @IBAction func changeGroup(_ sender: NSPopUpButton) {
-        document.wallpaperModel.group = sender.titleOfSelectedItem!
-        handleGroupChange(sender.titleOfSelectedItem!)
+        guard let grpString = sender.titleOfSelectedItem else {return}
+        guard let grp = Group(rawValue: grpString) else {return}
+        document.wallpaperModel.group = grp
+        handleGroupChange(grp)
     }
     
     @IBAction func pressRandom(_ sender: Any) {
@@ -221,8 +223,6 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         }
         wp.terms = ts
         document.wallpaperModel.terms = ts
-        wp.options = Options.random()
-        document.wallpaperModel.options = wp.options
         wp.numOfTerms = 1 + Int(arc4random_uniform(10))
         document.wallpaperModel.numOfTerms = wp.numOfTerms
         let g = randomGroup()
@@ -243,19 +243,21 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func pressRun(_ sender: Any) {
         self.view.window?.makeFirstResponder(self.view.window?.contentView)
-        guard let grp = group.titleOfSelectedItem else {return}
+        guard let grpString = group.titleOfSelectedItem else {return}
+        guard let grp = Group(rawValue: grpString) else {return}
         guard let img = wheel.image else {return}
         let a1 = wp.param1 > 0 ? wp.param1 : 1
         let a2 = wp.param2 > 0 ? wp.param2 : 1
         let rl = wp.options.repLength > 0 ? wp.options.repLength : 100
         let s = wp.options.scale != 0 ? wp.options.scale : 1.0
+        let h = wp.options.morphing ? 240 : 480
         var result: NSBitmapImageRep?
         exportProgress.isHidden = false
         exportProgress.startAnimation(self)
         exportLabel.isHidden = false
         exportLabel.stringValue = "creating preview"
         DispatchQueue.global(qos: .userInteractive).async {
-            result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: 600, height: 480, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation, morphing: self.wp.options.morphing)
+            result = self.makeWallpaper(image: img, recipeFn: groupToRecipeFn(grp, a1, a2), width: 600, height: h, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation, morphing: self.wp.options.morphing)
             DispatchQueue.main.async {
                 self.wallpaperImage.image = bitmapToImage(result!)
                 DispatchQueue.main.async {
@@ -279,7 +281,8 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func pressExport(_ sender: Any) {
         self.view.window?.makeFirstResponder(self.view.window?.contentView)
         var topLevelObjects : NSArray?
-        guard let grp = group.titleOfSelectedItem else {return}
+        guard let grpString = group.titleOfSelectedItem else {return}
+        guard let grp = Group(rawValue: grpString) else {return}
         guard let img = wheel.image else {return}
         let a1 = wp.param1 > 0 ? wp.param1 : 1
         let a2 = wp.param2 > 0 ? wp.param2 : 1
@@ -300,7 +303,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
             exportHeight = heightField.intValue == 0 ? 480 : Int(heightField.intValue)
             let filetype = imageTypePopup.titleOfSelectedItem
             DispatchQueue.global(qos: .background).async {
-                result = self.makeWallpaper(image: img, recipeFn: stringToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation, morphing: self.wp.options.morphing)
+                result = self.makeWallpaper(image: img, recipeFn: groupToRecipeFn(grp, a1, a2), width: self.exportWidth!, height: self.exportHeight!, repLength: Int(rl), origin: self.wp.options.origin, scale: s, rotation: self.wp.options.rotation, morphing: self.wp.options.morphing)
                 switch filetype {
                 case "PNG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .png)
                 case "JPEG": result?.writeImageRep(toURL: self.savePanel.url!, filetype: .jpeg)
@@ -323,7 +326,8 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     
     func preProcessImage() {
         guard let pString = preprocessMenu.titleOfSelectedItem else {return}
-        let preprocess = stringToPreprocess(pString)
+        guard let process = Preprocess(rawValue: pString) else {return}
+        let preprocess = preprocessToFunc(process)
         var result = NSImage()
         exportProgress.isHidden = false
         exportProgress.startAnimation(self)
@@ -341,7 +345,6 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
             }
         }
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -355,44 +358,16 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     
 }
 
-func stringToRecipeFn(_ str: String, _ a1: Double, _ a2: Double) -> ([Coef]) -> Recipe {
-    switch str {
-    case "p1": return p1(a1, a2)
-    case "p2": return p2(a1, a2)
-    case "cm": return cm(a1)
-    case "cmm": return cmm(a1)
-    case "pm": return pm(a1)
-    case "pg": return pg(a1)
-    case "pmm": return pmm(a1)
-    case "pmg": return pmg(a1)
-    case "pgg": return pgg(a1)
-    case "p4": return p4
-    case "p4m": return p4m
-    case "p4g": return p4g
-    case "p3": return p3
-    case "p31m": return p31m
-    case "p3m1": return p3m1
-    case "p6": return p6
-    case "p6m": return p6m
-    default:
-        print("The sky is falling, popup returned an unhandled group")
-        return p4
-    }
-}
-
-func stringToPreprocess(_ str: String) -> (RGBAimage) -> RGBAimage {
-    switch str {
-    case "none": return plain
-    case "flip vertical": return flipVertical
-    case "flip horizontal": return flipHorizontal
-    case "flip both": return flipBoth
-    case "invert colors": return invertImage
-    case "grayscale": return grayscale
-    case "antisymmetric vertical": return antiSymmVertical
-    case "antisymmetric horizontal": return antiSymmHorizontal
-    default:
-        print("The sky is falling, popup returned unhandled preprocess")
-        return plain
+func preprocessToFunc(_ p: Preprocess) -> (RGBAimage) -> RGBAimage {
+    switch p {
+    case .plain: return plain
+    case .flipVertical: return flipVertical
+    case .flipHorizontal: return flipHorizontal
+    case .flipBoth: return flipBoth
+    case .invertImage: return invertImage
+    case .grayscale: return grayscale
+    case .antiSymmVertical: return antiSymmVertical
+    case .antiSymmHorizontal: return antiSymmHorizontal
     }
 }
 
