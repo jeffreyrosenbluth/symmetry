@@ -349,6 +349,10 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         showCoef(1)
+        let g = groups.map {$0.rawValue}
+        group.addItems(withTitles: g)
+        let p = processes.map {$0.rawValue}
+        preprocessMenu.addItems(withTitles: p)
     }
     
     override func viewWillAppear() {

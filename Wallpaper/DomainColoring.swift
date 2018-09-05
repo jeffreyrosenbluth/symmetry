@@ -10,6 +10,7 @@ import Foundation
 import Cocoa
 
 typealias  Recipe = (Complex) -> Complex
+typealias RecipeMaker = ([Coef]) -> Recipe
 
 struct Coef: Hashable, Codable {
     var nCoord: Int
@@ -51,6 +52,7 @@ extension Coef {
     }
 }
 
+// Fix this when Swift 4.2 is released.
 extension Coef {
     static func random() -> Coef {
         var n = Int(arc4random_uniform(7))
@@ -59,7 +61,6 @@ extension Coef {
         m = Int(arc4random_uniform(2)) == 0 ? m : -m
         let d = (360 * drand48()).rounded()
         return Coef(nCoord: n, mCoord: m, anm: Complex(r: 1, degrees: d))
-
     }
 }
 
@@ -73,6 +74,7 @@ struct Options: Codable {
     var morphing: Bool
 }
 
+// Fix this when Swift 4.2 is released.
 extension Options {
     static func random() -> Options {
         let x = (2 * drand48() - 1).round2()
@@ -180,7 +182,7 @@ func wallpaper(options: Options, recipeFn: (([Coef]) -> Recipe), coefs: [Coef], 
     let image = imageToBitmap(nsImage)
     let data: [UInt8] = Array(UnsafeBufferPointer(start: image.bitmapData!, count: image.pixelsWide * image.pixelsHigh * 4))
     let pixels = RGBAimage(pixels: data, width: image.pixelsWide, height: image.pixelsHigh)
-    // We set the cutoff (i.e amount of unchanging border to 10%) somewhat arbitrarily.
+    // We set the cutoff in morphing images to 0.1 (i.e amount of unchanging border to 10%) somewhat arbitrarily.
     let outImage = options.morphing ? morph(options, recipeFn(coefs), 0.1, pixels) : domainColoring(options, recipeFn(coefs), pixels)
     return toNSBitmapImageRep(outImage)
 }
@@ -210,11 +212,11 @@ func genericLattice(_ xi: Double, _ eta: Double) -> (Int, Int) -> Recipe {
     }
 }
 
-func p1(_ xi: Double, _ eta: Double) -> ([Coef]) -> Recipe {
+func p1(_ xi: Double, _ eta: Double) -> RecipeMaker {
     return {(c) in makeRecipe(recipeFunc: (genericLattice(xi, eta)), coeffs: c)}
 }
 
-func p2(_ xi: Double, _ eta: Double) -> ([Coef]) -> Recipe {
+func p2(_ xi: Double, _ eta: Double) -> RecipeMaker {
     return {(c) in
         let c1 = c.map{$0.negateBoth()}
         return makeRecipe(recipeFunc: (genericLattice(xi, eta)), coeffs: nub(c + c1))}
@@ -230,13 +232,13 @@ func rhombicLattice(_ b: Double) -> (Int, Int) -> Recipe {
     }
 }
 
-func cm(_ b: Double) -> ([Coef]) -> Recipe {
+func cm(_ b: Double) -> RecipeMaker {
     return {(c) in
         let c1 = c.map{$0.reverse()}
         return makeRecipe(recipeFunc: (rhombicLattice(b)), coeffs: nub(c + c1))}
 }
 
-func cmm(_ b: Double) -> ([Coef]) -> Recipe {
+func cmm(_ b: Double) -> RecipeMaker {
     return {(c) in
         let c1 = c.map{$0.negateBoth()}
         let c2 = c.map{$0.reverse()}
@@ -256,31 +258,31 @@ func rectangularLattice2(_ l: Double) -> (Int, Int) -> Recipe {
     }
 }
 
-func pm(_ l: Double) -> ([Coef]) -> Recipe {
+func pm(_ l: Double) -> RecipeMaker {
     return {(c) in
         let c1 = c.map{$0.negateSnd()}
         return makeRecipe(recipeFunc: (rectangularLattice(l)), coeffs: nub(c + c1))}
 }
 
-func pg(_ l: Double) -> ([Coef]) -> Recipe {
+func pg(_ l: Double) -> RecipeMaker {
     return {(c) in
     let c1 = c.map{$0.alternate{(n, m) in alt(n)}.negateSnd()}
         return makeRecipe(recipeFunc: (rectangularLattice(l)), coeffs: nub(c + c1))}
 }
 
-func pmm(_ l: Double) -> ([Coef]) -> Recipe {
+func pmm(_ l: Double) -> RecipeMaker {
     return {(c) in
         let c1 = c.map{$0.negateSnd()}
         return makeRecipe(recipeFunc: (rectangularLattice2(l)), coeffs: nub(c + c1))}
 }
 
-func pmg(_ l: Double) -> ([Coef]) -> Recipe {
+func pmg(_ l: Double) -> RecipeMaker {
     return {(c) in
         let c1 = c.map{$0.alternate{(n, m) in alt(n)}.negateSnd()}
         return makeRecipe(recipeFunc: (rectangularLattice2(l)), coeffs: nub(c + c1))}
 }
 
-func pgg(_ l: Double) -> ([Coef]) -> Recipe {
+func pgg(_ l: Double) -> RecipeMaker {
     return {(c) in
         let c1 = c.map{$0.alternate{(n, m) in alt(n + m)}.negateSnd()}
         return makeRecipe(recipeFunc: (rectangularLattice2(l)), coeffs: nub(c + c1))}
@@ -343,7 +345,7 @@ func p6m(_ c: [Coef]) -> Recipe {
     return makeRecipe(recipeFunc: hexagonalLattice(_:_:), coeffs: nub(c + c1 + c2 + c3))
 }
 
-func groupToRecipeFn(_ g: Group, _ a1: Double, _ a2: Double) -> ([Coef]) -> Recipe {
+func groupToRecipeFn(_ g: Group, _ a1: Double, _ a2: Double) -> RecipeMaker {
     switch g {
     case .p1: return p1(a1, a2)
     case .p2: return p2(a1, a2)

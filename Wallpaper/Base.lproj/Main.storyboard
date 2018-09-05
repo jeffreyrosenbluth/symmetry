@@ -499,58 +499,10 @@
                             <popUpButton toolTip="Symmetry group of wallpaper pattern - crystallographic (IUC) short name." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pNk-MH-OSD">
                                 <rect key="frame" x="61" y="683" width="76" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="p4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="VOR-yO-HDd" id="xAo-Ge-kA0">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="xAo-Ge-kA0">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="pQY-rA-nYY">
-                                        <items>
-                                            <menuItem title="p1" id="DUJ-gA-C5Q"/>
-                                            <menuItem title="p2" id="DVO-Sf-60l"/>
-                                            <menuItem title="cm" id="DJF-I7-ARu"/>
-                                            <menuItem title="cmm" id="JM6-Ra-787">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="pm" id="Qq8-UG-tSi" userLabel="pm">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="pg" id="FNd-UA-6Lz" userLabel="pg">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="pmm" id="UYW-mx-nct" userLabel="pmm">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="pmg" id="0cd-rP-b8x" userLabel="pmg">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="pgg" id="q5c-u9-J5Y" userLabel="pgg">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="p4" state="on" id="VOR-yO-HDd" userLabel="p4">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="p4m" id="tYB-eM-Ea1" userLabel="p4m">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="p4g" id="ZbB-O3-uoX" userLabel="p4g">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="p3" id="1js-GI-XF9" userLabel="p3">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="p31m" id="dmj-2Y-mhc" userLabel="p31m">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="p3m1" id="eCM-0K-MAe" userLabel="p3m1">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="p6" id="ZUC-Zo-NAV" userLabel="p6">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="p6m" id="3Hb-J8-E2f">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
+                                    <menu key="menu" id="pQY-rA-nYY"/>
                                 </popUpButtonCell>
                                 <connections>
                                     <action selector="changeGroup:" target="ajg-Yh-L8P" id="KwS-60-3iM"/>
@@ -665,21 +617,10 @@
                             <popUpButton toolTip="Image processing applied to color wheel." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Gk-l3-uFG">
                                 <rect key="frame" x="9" y="473" width="206" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="none" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="JuU-Kg-T2x" id="XNo-wP-DCQ">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="XNo-wP-DCQ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="4fe-Qq-jhD">
-                                        <items>
-                                            <menuItem title="none" state="on" id="JuU-Kg-T2x"/>
-                                            <menuItem title="flip vertical" id="thA-OM-xn8"/>
-                                            <menuItem title="flip horizontal" id="WVe-Qy-9n7"/>
-                                            <menuItem title="flip both" id="shO-va-owU"/>
-                                            <menuItem title="invert colors" id="uu6-Uk-NON"/>
-                                            <menuItem title="grayscale" id="hi0-0F-KqC"/>
-                                            <menuItem title="antisymmetric vertical" id="dhi-Ew-rh9"/>
-                                            <menuItem title="antisymmetric horizontal" id="bFp-QZ-gt2"/>
-                                        </items>
-                                    </menu>
+                                    <menu key="menu" id="4fe-Qq-jhD"/>
                                 </popUpButtonCell>
                                 <connections>
                                     <action selector="preprocessChanged:" target="ajg-Yh-L8P" id="ERx-vS-aw4"/>
