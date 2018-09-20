@@ -21,7 +21,7 @@ struct WallpaperModel: Codable {
                 ]
 }
 
-enum Group: String, Codable {
+enum Group: String, Codable, CaseIterable {
     case p1
     case p2
     case cm
@@ -41,15 +41,7 @@ enum Group: String, Codable {
     case p6m
 }
 
-let groups: [Group] =  [.p1, .p2, .cm, .cmm, .pm, .pg, .pmm, .pmg, .pgg, .p4, .p4m, .p4g, .p3, .p31m, .p3m1, .p6, .p6m]
-
-// Fix this when Swift 4.2 is released. Both to enumerate the enum and better random functions.
-func randomGroup() -> Group {
-    let n = Int(arc4random_uniform(17))
-    return groups[n]
-}
-
-enum Preprocess: String, Codable {
+enum Preprocess: String, Codable, CaseIterable {
     case plain = "none"
     case flipVertical = "flip vertical"
     case flipHorizontal = "flip horizontal"
@@ -59,5 +51,3 @@ enum Preprocess: String, Codable {
     case antiSymmVertical = "antisymmetric vertical"
     case antiSymmHorizontal = "antisymmetric horizontal"
 }
-
-let processes: [Preprocess] = [.plain, .flipVertical, .flipHorizontal, .flipBoth, .invertImage, .grayscale, .antiSymmVertical, .antiSymmHorizontal]

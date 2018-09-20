@@ -225,7 +225,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         document.wallpaperModel.terms = ts
         wp.numOfTerms = 1 + Int(arc4random_uniform(10))
         document.wallpaperModel.numOfTerms = wp.numOfTerms
-        let g = randomGroup()
+        guard let g = Group.allCases.randomElement() else {return}
         handleGroupChange(g)
         wp.group = g
         document.wallpaperModel.group = g
@@ -349,9 +349,9 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         showCoef(1)
-        let g = groups.map {$0.rawValue}
+        let g = Group.allCases.map {$0.rawValue}
         group.addItems(withTitles: g)
-        let p = processes.map {$0.rawValue}
+        let p = Preprocess.allCases.map {$0.rawValue}
         preprocessMenu.addItems(withTitles: p)
     }
     

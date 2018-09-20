@@ -55,11 +55,9 @@ extension Coef {
 // Fix this when Swift 4.2 is released.
 extension Coef {
     static func random() -> Coef {
-        var n = Int(arc4random_uniform(7))
-        n = Int(arc4random_uniform(2)) == 0 ? n : -n
-        var m = Int(arc4random_uniform(7))
-        m = Int(arc4random_uniform(2)) == 0 ? m : -m
-        let d = (360 * drand48()).rounded()
+        let n = Int.random(in: -6...6)
+        let m = Int.random(in: -6...6)
+        let d = (360 * Double.random(in: 0...1)).rounded()
         return Coef(nCoord: n, mCoord: m, anm: Complex(r: 1, degrees: d))
     }
 }
@@ -74,13 +72,12 @@ struct Options: Codable {
     var morphing: Bool
 }
 
-// Fix this when Swift 4.2 is released.
 extension Options {
     static func random() -> Options {
-        let x = (2 * drand48() - 1).round2()
-        let y = (2 * drand48() - 1).round2()
-        let s = (drand48() + 0.5).round2()
-        let r = (360 * drand48()).rounded()
+        let x = (2 * Double.random(in: 0...1) - 1).round2()
+        let y = (2 * Double.random(in: 0...1) - 1).round2()
+        let s = (Double.random(in: 0...1) + 0.5).round2()
+        let r = (360 * Double.random(in: 0...1)).rounded()
         return Options(width: 600, height: 480, repLength: 240, origin: Complex(x, y), scale: s, rotation: r, morphing: false)
     }
 }
