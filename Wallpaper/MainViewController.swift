@@ -82,7 +82,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func controlTextDidEndEditing(_ obj: Notification) {
         let tf = obj.object as! NSTextField
         let i = Int(term.intValue - 1)
         let x = Double(tf.doubleValue)
@@ -291,7 +291,7 @@ class MainViewController: NSViewController, NSTextFieldDelegate {
         savePanel.title = "Save As:"
         savePanel.prompt = "Save"
         savePanel.allowedFileTypes = ["png"]
-        Bundle.main.loadNibNamed(NSNib.Name(rawValue: "ExportAccessory"), owner: self, topLevelObjects: &topLevelObjects)
+        Bundle.main.loadNibNamed("ExportAccessory", owner: self, topLevelObjects: &topLevelObjects)
         savePanel.accessoryView = topLevelObjects!.first(where: { $0 is NSView }) as? NSView
         if savePanel.runModal() == NSApplication.ModalResponse.OK {
             exportProgress.isHidden = false
