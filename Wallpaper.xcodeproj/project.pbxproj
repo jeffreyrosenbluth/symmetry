@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE110A3D20EFFA9F00667385 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE110A3C20EFFA9F00667385 /* MainWindowController.swift */; };
 		CE583D2421050D1A00D42AF6 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE583D2321050D1A00D42AF6 /* Document.swift */; };
 		CE583D26210510F100D42AF6 /* WallpaperModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE583D25210510F100D42AF6 /* WallpaperModel.swift */; };
 		CE77E75720F688E000043403 /* ExportAccessory.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE77E75620F688E000043403 /* ExportAccessory.xib */; };
@@ -41,7 +40,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CE110A3C20EFFA9F00667385 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		CE583D2321050D1A00D42AF6 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		CE583D25210510F100D42AF6 /* WallpaperModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperModel.swift; sourceTree = "<group>"; };
 		CE77E75620F688E000043403 /* ExportAccessory.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportAccessory.xib; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 				CE81755820B8467200525391 /* Main.storyboard */,
 				CE81759320B852B000525391 /* MainViewController.swift */,
 				CE77E75620F688E000043403 /* ExportAccessory.xib */,
-				CE110A3C20EFFA9F00667385 /* MainWindowController.swift */,
 				CECBCAD620C815CD005902E6 /* Utilities.swift */,
 				CECBCADA20D6F58F005902E6 /* DomainColoring.swift */,
 				CECBCADC20D6F60A005902E6 /* Complex.swift */,
@@ -291,7 +288,6 @@
 				CE81755320B8467100525391 /* AppDelegate.swift in Sources */,
 				CECBCADB20D6F58F005902E6 /* DomainColoring.swift in Sources */,
 				CE81759420B852B000525391 /* MainViewController.swift in Sources */,
-				CE110A3D20EFFA9F00667385 /* MainWindowController.swift in Sources */,
 				CE583D2421050D1A00D42AF6 /* Document.swift in Sources */,
 				CE583D26210510F100D42AF6 /* WallpaperModel.swift in Sources */,
 				CECBCAD720C815CD005902E6 /* Utilities.swift in Sources */,

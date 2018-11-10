@@ -22,7 +22,7 @@ class Document: NSDocument {
 
     override func makeWindowControllers() {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        let windowController = storyboard.instantiateController(withIdentifier: "Wallpaper") as! MainWindowController
+        let windowController = storyboard.instantiateController(withIdentifier: "Wallpaper") as! NSWindowController
         self.addWindowController(windowController)
     }
 
